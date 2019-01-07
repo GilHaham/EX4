@@ -4,4 +4,6 @@ project(EX4)
 set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES main.cpp)
-add_executable(EX4 ${SOURCE_FILES})
+
+#add_executable(EX4 ${SOURCE_FILES})
+add_executable(EX4 main.cpp)
