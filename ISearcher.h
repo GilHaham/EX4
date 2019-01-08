@@ -8,11 +8,11 @@
 
 #include "Solution.h"
 #include "ISearchable.h"
-
+template <class T>
 class ISearcher {
 
 public:
-    virtual Solution search(ISearchable searchable)=0;
+    virtual Solution search(ISearchable<T> searchable)=0;
     virtual int getNumberOfNodesEvaluated()=0;
 
 };
