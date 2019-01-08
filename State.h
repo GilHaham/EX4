@@ -15,7 +15,6 @@
 //TODO- initialize cameFrom
 
 template <class T>
-
 class State {
 
 private:
