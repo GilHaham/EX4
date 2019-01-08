@@ -7,8 +7,10 @@
 
 
 #include "ISearcher.h"
+template <class T>
+class Searcher : public ISearcher<T> {
 
-class Searcher : public ISearcher {
+
 
 };
 
