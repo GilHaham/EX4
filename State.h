@@ -19,7 +19,7 @@ class State {
 
 private:
     T state;
-    double cost; //keshet
+    double cost; //
     State<T>* cameFrom; //aba
 
 public:

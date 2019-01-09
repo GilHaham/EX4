@@ -5,8 +5,10 @@
 #ifndef EX4_LEXPARSER_H
 #define EX4_LEXPARSER_H
 
+#include "MatrixProblem.h"
 
 class LexParser {
+
 
 };
 

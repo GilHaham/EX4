@@ -7,23 +7,29 @@
 
 
 #include "ISearchable.h"
+#include "Point.h"
 
 using namespace std;
 
+
 template <class T>
-class Matrix: public ISearchable<T> {
+class MatrixProblem: public ISearchable<T> {
 
 private:
     vector<vector<int>> matrix;
-    int row;
-    int col;
     int matrixSize;
+    State<T> initState;
+    State<T> goalState;
 
 
 public:
-    State<T> getInitialState() override;
 
-    State<T> getGoalState() override;
+    MatrixProblem( vector<vector<int>> &matrix, int matrixSize,  State<T> &initState,
+                   State<T> &goalState);
+
+    State<vector<int>> getInitialState() override;
+
+    State<vector<int>> getGoalState() override;
 
     std::vector<State<T>> getAllPossibleStates(State<T> state) override;
 

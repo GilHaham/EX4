@@ -1,5 +1,6 @@
 #include <iostream>
 #include "State.h"
+#include "Point.h"
 //#include "SearcherAlgo"
 
 using namespace std;
@@ -9,6 +10,10 @@ int main() {
     State<string> *a = new State<string>("A");
     State<string> *b = new State<string>("B");
     State<string> *goal = new State<string>("B");
+
+
+    Point* point = new Point(0,2);
+//    MatrixProblem* matrix = ne
 
     bool result = goal->Equals(b);
     cout<<result<<endl;
