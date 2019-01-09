@@ -11,7 +11,7 @@
 using namespace std;
 
 template <class T>
-class BestFirstSearch: public ISearcher  {
+class BestFirstSearch: public ISearcher<T>  {
 private:
     queue <State<T>> openList;
     set <State<T>> closeList;
@@ -19,12 +19,19 @@ private:
 public:
 
     queue<State<T>> &getOpenList();
-    void &setOpenList(queue<State<T>> openListQueue) ;
+
+    void setOpenList(queue<State<T>> openListQueue) ;
+
+
 
     set<State<T>> &getCloseList() ;
+
     void setCloseList(set<State<T>> &closeList);
 
+
+
     virtual Solution search(ISearchable<T> searchable);
+
     virtual int getNumberOfNodesEvaluated();
 
 };

@@ -15,6 +15,8 @@ public:
     virtual Solution search(ISearchable<T> searchable)=0;
     virtual int getNumberOfNodesEvaluated()=0;
 
+
+
 };
 
 
