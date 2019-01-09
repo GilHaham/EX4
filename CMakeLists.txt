@@ -3,7 +3,7 @@ project(EX4)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp Server.h MySerialServer.cpp MySerialServer.h ClientHandler.h
-        MyClientHandler.cpp MyClientHandler.h State.h SearcherAlgo/BestFirstSearch.cpp SearcherAlgo/BestFirstSearch.h
-        ISearcher.h ISearchable.h Solution.cpp Solution.h Searcher.cpp Searcher.h)
+set(SOURCE_FILES main.cpp Server.h MySerialServer.cpp MySerialServer.h ClientHandler.h MyClientHandler.cpp
+        MyClientHandler.h State.h SearcherAlgo/BestFirstSearch.cpp SearcherAlgo/BestFirstSearch.h ISearcher.h
+        ISearchable.h Solution.cpp Solution.h Searcher.cpp Searcher.h CacheManager.cpp CacheManager.h)
 add_executable(EX4 ${SOURCE_FILES})
