@@ -19,8 +19,8 @@ class State {
 
 private:
     T state;
-    double cost;
-    State<T>* cameFrom;
+    double cost; //keshet
+    State<T>* cameFrom; //aba
 
 public:
     State(T state1){

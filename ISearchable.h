@@ -13,7 +13,6 @@ class ISearchable {
 public:
     virtual State<T> getInitialState()=0;
     virtual State<T> getGoalState()=0;
-//    std::set <State*> getAllPossibleStates(State* state);
     virtual std::vector<State<T>> getAllPossibleStates(State<T> state)=0;
     virtual bool isGoal(State<T>)=0;
 
