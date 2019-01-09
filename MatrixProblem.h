@@ -21,7 +21,7 @@ private:
     State<T> initState;
     State<T> goalState;
 
-
+//delete
 public:
 
     MatrixProblem( vector<vector<int>> &matrix, int matrixSize,  State<T> &initState,
