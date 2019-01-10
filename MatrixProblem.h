@@ -7,14 +7,14 @@
 //
 //
 //#include <queue>
-//#include "ISearchable.h"
+//#include "Searchable.h"
 //#include "Point.h"
 //
 //using namespace std;
 //
 //
 //template <class T>
-//class MatrixProblem: public ISearchable<T> {
+//class MatrixProblem: public Searchable<T> {
 //
 //private:
 //    vector<vector<int>> matrix;

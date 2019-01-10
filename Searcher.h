@@ -2,17 +2,21 @@
 // Created by gil on 08/01/19.
 //
 
-#ifndef EX4_SEARCHER_H
-#define EX4_SEARCHER_H
+#ifndef EX4_SERARCHER_H
+#define EX4_SERARCHER_H
 
 
-#include "ISearcher.h"
-template <class T>
-class Searcher : public ISearcher<T> {
+#include "Searchable.h"
+template <class T ,class Solution>
+class Searcher {
+
+public:
+    virtual Solution search(Searchable<T> searchable)=0;
+    virtual int getNumberOfNodesEvaluated()=0;
 
 
 
 };
 
 
-#endif //EX4_SEARCHER_H
+#endif //EX4_SERARCHER_H

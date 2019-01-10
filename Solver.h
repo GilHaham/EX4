@@ -10,6 +10,10 @@
 
 template<class Problem, class Solution>
 class Solver {
+
+private:
+
+
 public:
     virtual Solution solve(Problem p) = 0;
 };

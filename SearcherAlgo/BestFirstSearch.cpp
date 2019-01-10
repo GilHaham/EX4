@@ -25,7 +25,7 @@ void BestFirstSearch<T>::setCloseList(set<State<T>> &closeList) {
 }
 
 template <class T>
-Solution BestFirstSearch<T>::search(ISearchable<T> searchable) {
+Solution BestFirstSearch<T>::search(Searchable<T> searchable) {
     State<T> *currentState = new State<T>("A");
 
     this->openList.push(searchable.getInitialState());
