@@ -7,11 +7,11 @@
 
 
 #include "Searchable.h"
-template <class T ,class Solution>
+template <class T>
 class Searcher {
 
 public:
-    virtual Solution search(Searchable<T> searchable)=0;
+    virtual std::string search(Searchable<T> searchable)=0;
     virtual int getNumberOfNodesEvaluated()=0;
 
 

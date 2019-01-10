@@ -17,17 +17,19 @@ class MyTestClientHandler: public ClientHandler {
 
 private:
     Solver<string, string>* solver;
-    CacheManager<string, string>* cacheManager;
+    CacheManager* cacheManager;
 
 public:
     /* constructor*/
-    MyTestClientHandler(Solver<string, string> *solver1, CacheManager<string, string> *cacheManager1) {
+    MyTestClientHandler(Solver<string, string> *solver1, CacheManager *cacheManager1) {
         this->solver = solver1;
         this->cacheManager = cacheManager1;
     }
-
-    string handleClient(string str);
+    string handleClient(int socket) override;
+    void writeSolution(int id, char* buffer);
 };
+
+
 
 
 #endif //EX4_MYTESTCLIENTHANDLER_H

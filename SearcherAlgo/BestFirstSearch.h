@@ -30,7 +30,7 @@ public:
 
 
 
-    virtual Solution search(Searchable<T> searchable);
+    virtual string search(Searchable<T> searchable);
 
     virtual int getNumberOfNodesEvaluated();
 

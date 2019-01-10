@@ -13,20 +13,20 @@
 
 
 using namespace std;
-template<class Problem, class Solution>
+//template<class Problem, class Solution>
 
 
 class CacheManager {
 public:
-    virtual bool isSolutionExist(Problem problem) = 0;
+    virtual bool isSolutionExist(string problem) = 0;
 
-    virtual string extractSolution(Problem problem) = 0;
+    virtual string extractSolution(string problem) = 0;
 
-    virtual void saveSolution(Problem problem, Solution solution) = 0;
+    virtual void saveSolution(string problem, string solution) = 0;
 
-    virtual void saveToFile(unordered_map<string, string> solutions);
+    virtual void saveToFile(unordered_map<string, string> solutions) =0;
 
-    virtual void loadFileToMap();
+    virtual void loadFileToMap()=0;
 
 
 

@@ -5,27 +5,27 @@
 #include "FileCacheManager.h"
 
 // find if their is a solution in the map.
-template<class Problem, class Solution>
-bool FileCacheManager<Problem, Solution>::isExist(Problem problem) {
+//template<class string, class Solution>
+bool FileCacheManager::isExist(string problem) {
     return this->solutionsMap.count(problem) > 0;
 
 }
 
 // extract the solution.
-template<class Problem, class Solution>
-Solution FileCacheManager<Problem, Solution>::popSolution(Problem problem) {
+//template<class Problem, class Solution>
+string FileCacheManager::popSolution(string problem) {
     return this->solutionsMap.at(problem);
 }
 
 // insert the key(problem) and the value(solution)
-template<class Problem, class Solution>
-void FileCacheManager<Problem, Solution>::saveSolution(Problem problem, Solution solution) {
+//template<class Problem, class Solution>
+void FileCacheManager::saveSolution(string problem, string solution) {
     solutionsMap.insert(make_pair(problem, solution));
 }
 
 //
-template<class Problem, class Solution>
-void FileCacheManager<Problem, Solution>::loadFileToMap() {
+//template<class Problem, class Solution>
+void FileCacheManager::loadFileToMap() {
     ifstream solutionsFile;
     string line;
     vector<string> parsingVector;
@@ -42,8 +42,8 @@ void FileCacheManager<Problem, Solution>::loadFileToMap() {
     }
 }
 
-template<class Problem, class Solution>
-void FileCacheManager<Problem, Solution>::saveToFile(unordered_map<Problem, Solution> solutions) {
+//template<class Problem, class Solution>
+void FileCacheManager::saveToFile(unordered_map<string, string> solutions) {
     ofstream myFile;
     myFile.open("Solutions.txt");
     if (myFile.is_open()) {
