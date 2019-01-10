@@ -22,7 +22,7 @@ struct Args{
 void listenToClients(ClientHandler* clientHandler1, int sockfd) {
     while (true) {
         /*Start listen to clients*/
-        int new_sock;
+        int new_sockfd;
         listen(sockfd, 1);
         struct sockaddr_in client;
         socklen_t clilen = sizeof(client);
@@ -31,13 +31,11 @@ void listenToClients(ClientHandler* clientHandler1, int sockfd) {
         timeval timeout;
         timeout.tv_sec = 10;
         timeout.tv_usec = 0;
-
-        /*initialize the timeout for sockets */
         setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
 
         /*Accept actual connection from the client*/
-        new_sock = accept(sockfd, (struct sockaddr *) &client, &clilen);
-        if (new_sock < 0) {
+        new_sockfd = accept(sockfd, (struct sockaddr *) &client, &clilen);
+        if (new_sockfd < 0) {
             if (errno == EWOULDBLOCK) { //connection failed beacuse no slient came and we had timeout
                 cout << "timeout!" << endl;
                 exit(2);
@@ -46,8 +44,11 @@ void listenToClients(ClientHandler* clientHandler1, int sockfd) {
                 exit(3);
             }
         }
-        cout << new_sock << endl;
-        close(new_sock);
+
+        clientHandler1->handleClient(new_sockfd);
+
+        cout << new_sockfd << endl;
+        close(new_sockfd);
     }
 }
 

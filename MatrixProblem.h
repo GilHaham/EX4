@@ -1,91 +1,75 @@
-////
-//// Created by meir on 09/01/19.
-////
 //
-//#ifndef EX4_MATRIX_H
-//#define EX4_MATRIX_H
+// Created by meir on 07/01/19.
 //
-//
-//#include <queue>
-//#include "Searchable.h"
-//#include "Point.h"
-//
-//using namespace std;
-//
-//
-//template <class T>
-//class MatrixProblem: public Searchable<T> {
-//
-//private:
-//    vector<vector<int>> matrix;
-//    int matrixSize;
-//    State<T> initState;
-//    State<T> goalState;
-//
-//public:
-//
-///*
-//
-//template<class T>
-//State<vector<int>> MatrixProblem<T>::getInitialState() {
-//    return this->initState;
-//}
-//
-//template<class T>
-//State<vector<int>> MatrixProblem<T>::getGoalState() {
-//    return this->goalState;
-//
-//}
-//
-//template<class T>
-//std::vector<State<Point>> MatrixProblem<T>::getAllPossibleStates(State<Point> state) {
-//
-//    //#>~?>@?~!>$>@#$>#%?$^%>$&>&^>%
-////    return std::vector<State<T>>();
-//}
-//
-//template<class T>
-//bool MatrixProblem<T>::isGoal(State<T> state) {
-//    return false;
-//}
-// * */
-//
-//    MatrixProblem( vector<vector<int>> &matrix, int matrixSize, State<T> &initState,
-//                   State<T> &goalState) : matrix(matrix), matrixSize(matrixSize), initState(initState),
-//                                               goalState(goalState) {}
-//
-//    State<Point> getInitialState() override{
-//        return this->initState;
-//    }
-//
-//    State<Point> getGoalState() override{
-//        return this->goalState;
-//    }
-//
-//    std::vector<State<Point*>> getAllPossibleStates(State<Point*> state) override{
-//        vector<State<Point*>> statesQueue;
-//        int row = state.getState()->getRow();
-//        int col = state.getState()->getCol();
-//        int n =this->matrixSize;
-//        int upRow=0, downRow=n-1, leftCol=0, rightCol=n-1;
-//
-//        if(row<downRow ){ //we can move down
-//            if (col <= rightCol){//can move left
-//                if (col!=leftCol){
-////                    Point* point = new Point(row,col-1);
-//                    Point *p = new Point(row, col-1);
-//
-//                    State<Point> point2 = new State<Point>(p);
-//                    statesQueue.push_back(point); //insert left state
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    bool isGoal(State<T> state) override;
-//
-//};
-//
-//
-//#endif //EX4_MATRIX_H
+
+#include "Searchable.h"
+#include "Point.h"
+
+class MatrixProblem : public Searchable<class Point> {
+
+public:
+    MatrixProblem(vector<State<Point>*> search, State<Point>* initial, State<Point>* goal)
+    : Searchable(search, initial,goal){
+    }
+
+    State<Point>* getInitialState() {
+        return this->initialState;
+    }
+
+    void setInitialState(State<Point>* point) {
+        this->initialState=point;
+    }
+
+    State<Point>* getGoalState(){
+        return this->goalState;
+    }
+
+    vector<State<Point>*> getAllPossibleStates(State<Point>* state){
+        vector<State<Point>*> neighbors;
+        int row = state->getState().getRow();
+        int col = state->getState().getCol();
+        int matrixSize = this->searchable.size();
+        for (int n = 0; n < matrixSize; ++n) {
+            int n1 = this->searchable[n]->getState().getRow();
+            int n2 = this->searchable[n]->getState().getCol();
+            if (((n1 == (row - 1)) && (n2 == col)) || ((n1 == (row + 1)) && (n2 == col))
+                || ((n1 == row) && (n2 == (col - 1))) || ((n1 == row) && (n2 == (col + 1)))) {
+                if (this->searchable[n]->getCost() != (-1)) {
+                    neighbors.push_back(this->searchable[n]);
+                }
+            }
+        }
+        return neighbors;
+    }
+
+    string getPathSolution(vector<State<Point>*> pathPoints){
+        State<Point>* state;
+        State<Point>* next;
+        string finalPath="{";
+        for(int i=0; i<pathPoints.size()-1; i++) {
+            state = pathPoints[i];
+            next=pathPoints[i+1];
+            int rowNext=next->getState().getRow();
+            int colNext=next->getState().getCol();
+            int X = state->getState().getRow();
+            int Y = state->getState().getCol();
+            if (rowNext==X+1){
+                finalPath+="Down, ";
+            }
+            else if(rowNext==X-1){
+                finalPath+="Up, ";
+            }
+            else if (colNext==Y-1){
+                finalPath+="Left, ";
+            }
+            else if (colNext==Y+1){
+                finalPath+="Right, ";
+            }
+        }
+        finalPath.erase(finalPath.size()-2);
+        finalPath+="}";
+        return finalPath;
+    }
+
+
+};
