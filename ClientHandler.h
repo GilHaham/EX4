@@ -8,6 +8,6 @@
 #endif //EX4_CLIENTHANDLER_H
 
 class ClientHandler {
-
+public:
     virtual void handleClient(int socket)=0;
 };
