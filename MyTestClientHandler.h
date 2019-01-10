@@ -5,14 +5,11 @@
 #ifndef EX4_MYTESTCLIENTHANDLER_H
 #define EX4_MYTESTCLIENTHANDLER_H
 
+
 #include "ClientHandler.h"
 
 class MyTestClientHandler: public ClientHandler {
 
-    void handleClient(int socket)  {
-
-
-    }
 };
 
 
