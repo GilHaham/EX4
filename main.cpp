@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     std::cout << "Hello, World!" << std::endl;
     server_side::Server* mySerialServer = new MySerialServer;
-    ClientHandler* myClientHandler = new MyTestClientHandler;
+    ClientHandler* myClientHandler = new MyTestClientHandler();
     mySerialServer->openServer(5400, )
 
 

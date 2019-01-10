@@ -14,7 +14,7 @@ template <class T>
 class BestFirstSearch: public Searcher<T>  {
 private:
     queue <State<T>> openList;
-    set <State<T>> closeList;
+    queue <State<T>> closeList;
 
 public:
 
@@ -24,9 +24,9 @@ public:
 
 
 
-    set<State<T>> &getCloseList() ;
+    queue<State<T>> &getCloseList();
 
-    void setCloseList(set<State<T>> &closeList);
+    void setCloseList(queue<State<T>> &closeList);
 
 
 

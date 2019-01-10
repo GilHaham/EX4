@@ -15,14 +15,14 @@ void BestFirstSearch<T>::setOpenList(queue<State<T>> openListQueue){
 }
 
 template <class T>
-set<State<T>> &BestFirstSearch<T>::getCloseList() {
+queue<State<T>> &BestFirstSearch<T>::getCloseList() {
     return closeList;
 }
 
-template <class T>
-void BestFirstSearch<T>::setCloseList(set<State<T>> &closeList) {
-    BestFirstSearch::closeList = closeList;
-}
+//template <class T>
+//void BestFirstSearch<T>::setCloseList(set<State<T>> &closeList) {
+//    BestFirstSearch::closeList = closeList;
+//}
 
 template <class T>
 string BestFirstSearch<T>::search(Searchable<T> searchable) {

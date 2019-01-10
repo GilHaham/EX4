@@ -10,6 +10,6 @@
 #endif //EX4_CLIENTHANDLER_H
 
 class ClientHandler {
-
+public:
     virtual std::string handleClient(int socket)=0;
 };
