@@ -10,6 +10,7 @@
 
 namespace server_side {
     class Server {
+    public:
         virtual void openServer (int port, ClientHandler* clientHandler) =0;
         virtual void stopServer ()=0;
         virtual bool isOpen()= 0;

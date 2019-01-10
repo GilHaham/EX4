@@ -19,41 +19,41 @@ struct Args{
     int newsockfd;
 };
 
-void listenToClients(ClientHandler* clientHandler1, int sockfd) {
-    while (true) {
-        /*Start listen to clients*/
-        int new_sockfd;
-        listen(sockfd, 1);
-        struct sockaddr_in client;
-        socklen_t clilen = sizeof(client);
-
-        /*If no clients communicate for 1 second - then timeout*/
-        timeval timeout;
-        timeout.tv_sec = 10;
-        timeout.tv_usec = 0;
-        setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
-
-        /*Accept actual connection from the client*/
-        new_sockfd = accept(sockfd, (struct sockaddr *) &client, &clilen);
-        if (new_sockfd < 0) {
-            if (errno == EWOULDBLOCK) { //connection failed beacuse no slient came and we had timeout
-                cout << "timeout!" << endl;
-                exit(2);
-            } else {
-                perror("other error");
-                exit(3);
-            }
-        }
-
-        clientHandler1->handleClient(new_sockfd);
-
-        cout << new_sockfd << endl;
-        close(new_sockfd);
-    }
-}
+//void listenToClients(ClientHandler* clientHandler1, int sockfd) {
+//    while (true) {
+//        /*Start listen to clients*/
+//        int new_sockfd;
+//        listen(sockfd, 1);
+//        struct sockaddr_in client;
+//        socklen_t clilen = sizeof(client);
+//
+//        /*If no clients communicate for 1 second - then timeout*/
+//        timeval timeout;
+//        timeout.tv_sec = 10;
+//        timeout.tv_usec = 0;
+//        setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+//
+//        /*Accept actual connection from the client*/
+//        new_sockfd = accept(sockfd, (struct sockaddr *) &client, &clilen);
+//        if (new_sockfd < 0) {
+//            if (errno == EWOULDBLOCK) { //connection failed beacuse no slient came and we had timeout
+//                cout << "timeout!" << endl;
+//                exit(2);
+//            } else {
+//                perror("other error");
+//                exit(3);
+//            }
+//        }
+//
+//        clientHandler1->handleClient(new_sockfd);
+//
+//        cout << new_sockfd << endl;
+//        close(new_sockfd);
+//    }
+//}
 
 class MySerialServer: public server_side::Server {
-
+public:
     void openServer(int port, ClientHandler* clientHandler) override {
 
         cout << port << endl;
@@ -78,7 +78,38 @@ class MySerialServer: public server_side::Server {
 
         /*Open thread for listening to a client [maybe to soon] */
 
-        thread clientThred(listenToClients, clientHandler, socketfd);
+        while (true) {
+            /*Start listen to clients*/
+            int new_sockfd;
+            listen(socketfd, 1);
+            struct sockaddr_in client;
+            socklen_t clilen = sizeof(client);
+
+            /*If no clients communicate for 1 second - then timeout*/
+            timeval timeout;
+            timeout.tv_sec = 10;
+            timeout.tv_usec = 0;
+            setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+
+            /*Accept actual connection from the client*/
+            new_sockfd = accept(socketfd, (struct sockaddr *) &client, &clilen);
+            if (new_sockfd < 0) {
+                if (errno == EWOULDBLOCK) { //connection failed beacuse no slient came and we had timeout
+                    cout << "timeout!" << endl;
+                    exit(2);
+                } else {
+                    perror("other error");
+                    exit(3);
+                }
+            }
+
+            clientHandler->handleClient(new_sockfd);
+
+            cout << new_sockfd << endl;
+            close(new_sockfd);
+        }
+
+//        thread clientThred(listenToClients, clientHandler, socketfd);
 
         cout << socketfd << endl;
         close(socketfd);

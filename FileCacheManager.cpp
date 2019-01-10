@@ -11,6 +11,14 @@ bool FileCacheManager::isExist(string problem) {
 
 }
 
+bool FileCacheManager::isSolutionExist(string problem) { //////////
+    return this->solutionsMap.count(problem) > 0;
+}
+
+string FileCacheManager::extractSolution(string problem) { ///////////////
+    return this->solutionsMap.at(problem);
+}
+
 // extract the solution.
 //template<class Problem, class Solution>
 string FileCacheManager::popSolution(string problem) {

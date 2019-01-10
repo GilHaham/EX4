@@ -23,13 +23,26 @@ using namespace server_side;
 
 class FileCacheManager: public CacheManager{
     unordered_map<string, string> solutionsMap;
+    int flag;
 
 public:
+
+    FileCacheManager() {
+        this->flag = 0;
+    }
+
     virtual bool isExist(string problem);
     virtual string popSolution(string problem);
     virtual void saveSolution(string problem, string solution);
     virtual void saveToFile(unordered_map<string, string> solutions);
     virtual void loadFileToMap();
+
+    bool isSolutionExist(string problem) override;
+
+    string extractSolution(string problem) override;
+
+
+
 };
 
 
