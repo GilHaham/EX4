@@ -9,23 +9,23 @@
 class Point {
 
 private:
-    &int row;
-    &int col;
+    int row;
+    int col;
 
 public:
     Point(int newRow, int newCol) : row(newRow), col(newCol) {}
 
-    &int getRow(){
+    int getRow(){
         return this->row;
     }
-    &int getCol(){
-        return this->col
+    int getCol(){
+        return this->col;
     }
-    void setRow(&int currentRow){
-        &row = &currentRow
+    void setRow(int currentRow){
+        row = currentRow;
     }
-    void setCol(&int currentCol){
-        &col = &currentCol;
+    void setCol(int currentCol){
+        col = currentCol;
     }
 
 };

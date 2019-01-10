@@ -7,16 +7,15 @@
 
 
 #include "ISearchable.h"
-#include "Solution.h"
 
-template <class T>
+template <class T, class Solution>
 class CacheManager {
 
-    bool isSolutionExist(ISearchable<T> searchable);
+    virtual bool isSolutionExist(ISearchable<T> searchable)=0;
 
-    Solution extractSolution();
+    virtual Solution extractSolution()=0;
 
-    void saveSolution();
+    virtual void saveSolution()=0;
 
 };
 

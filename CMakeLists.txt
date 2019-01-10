@@ -3,8 +3,8 @@ project(EX4)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp Server.h MySerialServer.cpp MySerialServer.h ClientHandler.h MyClientHandler.cpp
+set(SOURCE_FILES main.cpp Server.h MySerialServer.h ClientHandler.h MyClientHandler.cpp
         MyClientHandler.h State.h SearcherAlgo/BestFirstSearch.cpp SearcherAlgo/BestFirstSearch.h ISearcher.h
-        ISearchable.h Solution.cpp Solution.h Searcher.cpp Searcher.h CacheManager.cpp CacheManager.h
-        MatrixProblem.h MatrixFactory.cpp MatrixFactory.h LexParser.cpp LexParser.h Point.h)
+        ISearchable.h Searcher.cpp Searcher.h CacheManager.h
+        MatrixProblem.h Point.h StringReverser.cpp StringReverser.h Solver.h MyTestClientHandler.h FileCacheManager.cpp FileCacheManager.h)
 add_executable(EX4 ${SOURCE_FILES})

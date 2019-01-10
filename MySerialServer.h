@@ -11,6 +11,17 @@
 class MySerialServer: public server_side::Server {
 
 
+    void openServer(int port, ClientHandler* clientHandler) override {
+
+    }
+
+    void stopServer() override {
+
+    }
+
+    bool isOpen() override {
+        return false;
+    }
 };
 
 
