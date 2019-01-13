@@ -12,6 +12,7 @@ bool FileCacheManager::isExist(string problem) {
 }
 
 bool FileCacheManager::isSolutionExist(string problem) { //////////
+    int a = 5; // debuging variable need to erase.
     return this->solutionsMap.count(problem) > 0;
 }
 

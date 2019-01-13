@@ -21,7 +21,7 @@ class BestFirstSearch: public Searcher<T> {
         }
     };
 public:
-    bool isExist( priority_queue<State<T> *, vector<State<T> *>, Comp> open, State<T> *state) {
+    bool isSolExist(priority_queue<State<T> *, vector<State<T> *>, Comp> open, State<T> *state) {
         while (!open.empty()) {
             if (state->Equals(open.top())) {
                 return true;
@@ -31,7 +31,8 @@ public:
         return false;
     }
 
-    priority_queue<State<T> *, vector<State<T> *>, Comp> updateQueueOpen(priority_queue<State<T> *, vector<State<T> *>, Comp> open) {
+    priority_queue<State<T> *, vector<State<T> *>, Comp> updateQueueOpen(priority_queue<State<T> *, vector<State<T> *>,
+            Comp> open) {
         priority_queue<State<T> *, vector<State<T> *>, Comp> temp;
         while (!open.empty()) {
             State<T>* node = open.top();
@@ -61,7 +62,7 @@ public:
             if (!n->Equals(searchable->getGoalState())) {
                 vector<State<T> *> neighbors = searchable->getAllPossibleStates(n);
                 for (State<T> *neighbor : neighbors) {
-                    if (!isExist(open, neighbor) && !InClosed(neighbor, closed)) {
+                    if (!isSolExist(open, neighbor) && !InClosed(neighbor, closed)) {
                         neighbor->setCameFrom(n);
                         tempCost=neighbor->getCost();
                         neighbor->setCost(neighbor->getCost()+neighbor->getCameFrom()->getCost());
@@ -71,7 +72,7 @@ public:
                         continue;
                     }
                     else if (neighbor->getCost() > tempCost + neighbor->getCameFrom()->getCost() ) {
-                        if (!isExist(open,neighbor)) {
+                        if (!isSolExist(open, neighbor)) {
                             open.push(neighbor);
                             closed.erase(std::remove(closed.begin(), closed.end(), neighbor), closed.end());
                         }

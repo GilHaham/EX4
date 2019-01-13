@@ -11,7 +11,7 @@
 
 class ClientHandler {
 public:
-    virtual std::string handleClient(int socket)=0;
+    virtual void handleClient(int socket)=0;
 };
 
 #endif //EX4_CLIENTHANDLER_H

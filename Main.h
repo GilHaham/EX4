@@ -11,6 +11,8 @@
 #include "MyTestClientHandler.h"
 #include "StringReverser.h"
 #include "FileCacheManager.h"
+#include "MyClientHandler.h"
+#include "MatrixProblem.h"
 
 namespace boot {
     class Main;
@@ -19,9 +21,10 @@ namespace boot {
 class boot::Main {
 public:
     void main(int port){
-    Solver<string, string> *solver = new StringReverser();
+    Solver<Searchable<Point>*, string> *solver = new MatrixProblem();
     CacheManager *cacheManager = new FileCacheManager();
-        auto c = new MyTestClientHandler(solver,cacheManager);
+        auto c = new MyClientHandler(cacheManager,solver);
+//        auto c = new MyClientHandler(solver,cacheManager);
         auto mySerialServer = new MySerialServer();
         mySerialServer->openServer(port,c);
     }
