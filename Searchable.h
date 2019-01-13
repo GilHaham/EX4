@@ -30,19 +30,28 @@ protected:
     vector<State<T>*> searchable;
     State<T>* initialState;
     State<T>* goalState;
+    double totalCost;
+
 public:
     Searchable(vector<State<T>*> search, State<T>* initial, State<T>* goal){
         this->searchable=search;
         this->initialState=initial;
         this->goalState=goal;
     }
+
+
     virtual State<T>* getInitialState() = 0;
 
     virtual State<T>* getGoalState()=0;
 
+    virtual string getPathSolution(vector<State<T>*> s)=0;
+
+    virtual double getTotalcost() = 0;
+
     virtual vector<State<T>*> getAllPossibleStates(State<T>* s)=0;
 
-    virtual string getPathSolution(vector<State<T>*> s)=0;
+    virtual void setTotalCost(double number) = 0;
+
 };
 
 #endif //EX4_SEARCHABLE_H

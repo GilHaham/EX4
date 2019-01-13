@@ -43,6 +43,18 @@ public:
         return this->cost;
     }
 
+    void setCameFrom(State<T> *cameFrom) {
+        State::cameFrom = cameFrom;
+    }
+
+    void setState(T state) {
+        State::state = state;
+    }
+
+    void setCost(double cost) {
+        State::cost = cost;
+    }
+
 
 };
 #endif //EX4_STATE_H
