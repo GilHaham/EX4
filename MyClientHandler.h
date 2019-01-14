@@ -17,7 +17,6 @@ public:
 
 private:
     CacheManager* cacheManager;
-//    Solver<State<Point>, string>* solver;
     Solver<Searchable<Point>*, string>* solver;
 
 

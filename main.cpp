@@ -34,7 +34,7 @@ int main() {
     MySerialServer* d = new MySerialServer();
     Solver<Searchable<Point>*, string>* solver = new GetSol(new BestFirstSearch<Point>());
     CacheManager* cacheManager = new FileCacheManager();
-    ClientHandler* ds = new MyClientHandler(solver, cacheManager);
+    ClientHandler* ds = new MyClientHandler(cacheManager, solver);
     d->openServer(5400,ds);
     while (true) {}
     return 0;
