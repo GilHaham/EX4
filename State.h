@@ -50,8 +50,8 @@ public:
     }
 
 
-    bool Equals(State<T> *other){
-        if(this->cost == other->cost) { ///////// cost == cost instead state == state
+    bool Equal(State<T> *other){
+        if(this->state == other->state) { ///////// cost == cost instead state == state
             return true;
         }
         else {

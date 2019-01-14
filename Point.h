@@ -28,6 +28,15 @@ public:
         col = currentCol;
     }
 
+    bool operator==(Point point) {
+        return ((this->row == point.getRow()) && (this->col == point.getCol()));
+    }
+
+    void setPoint(int col, int row) {
+        this->col = col;
+        this->row = row;
+    }
+
 };
 
 

@@ -24,7 +24,7 @@ class BestFirstSearch: public Searcher<T> {
 public:
     bool isSolExist(priority_queue<State<T> *, vector<State<T> *>, Comp> open, State<T> *state) {
         while (!open.empty()) {
-            if (state->Equals(open.top())) {
+            if (state->Equal(open.top())) {
                 return true;
             }
             open.pop();
@@ -55,13 +55,13 @@ public:
         while (!open.empty()) {
             State<T> *n = open.top();
             closed.push_back(n);
-            // TODO check Equals compare cost == cost, not state == state.
-            if ((n->Equals(searchable->getInitialState())) && n->getCost() == -1) {
+            // TODO check Equal compare cost == cost, not state == state.
+            if ((n->Equal(searchable->getInitialState())) && n->getCost() == -1) {
                 path = "-1";
                 return path;
             }
             open.pop();
-            if (!n->Equals(searchable->getGoalState())) {
+            if (!n->Equal(searchable->getGoalState())) {
                 vector<State<T> *> neighbors = searchable->getPossibleStates(n);
                 for (State<T> *neighbor : neighbors) {
                     if (!isSolExist(open, neighbor) && !InClosed(neighbor, closed)) {
@@ -112,7 +112,7 @@ public:
 
     bool InClosed(State<T> *state, vector<State<T> *> statesClosed) {
         for (State<T> *s : statesClosed) {
-            if (state->Equals(s)) {
+            if (state->Equal(s)) {
                 return true;
             }
         }
