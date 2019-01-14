@@ -20,15 +20,12 @@ class State {
 
 private:
     T state;
-    double cost; //
-    State<T>* cameFrom; //aba
+    double cost;  // total cost
+    State<T>* cameFrom; // father
 
 public:
 
     bool operator == (const State<T>* &b) const{
-        return this->cost == b->cost;
-    }
-    bool operator == (const State<Point>* &b){
         return this->cost == b->cost;
     }
 
@@ -46,12 +43,20 @@ public:
     }
 
 
+
+
     State(T state1){
       this->state = state1;
     }
 
-    bool Equals(State<T>* state1){
-        return (this->state == state1->state);
+
+    bool Equals(State<T> *other){
+        if(this->cost == other->cost) { ///////// cost == cost instead state == state
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     T &getState(){

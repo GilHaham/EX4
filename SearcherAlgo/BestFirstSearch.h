@@ -19,6 +19,7 @@ class BestFirstSearch: public Searcher<T> {
         bool operator()(State<T>* left, State<T>* right) {
             return (left->getCost()) > (right->getCost());
         }
+
     };
 public:
     bool isSolExist(priority_queue<State<T> *, vector<State<T> *>, Comp> open, State<T> *state) {
@@ -54,6 +55,7 @@ public:
         while (!open.empty()) {
             State<T> *n = open.top();
             closed.push_back(n);
+            // TODO check Equals compare cost == cost, not state == state.
             if ((n->Equals(searchable->getInitialState())) && n->getCost() == -1) {
                 path = "-1";
                 return path;

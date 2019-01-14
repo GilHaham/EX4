@@ -5,15 +5,14 @@
 #ifndef EX4_CACHEMANAGER_H
 #define EX4_CACHEMANAGER_H
 
-
 #include "Searchable.h"
-
 #include <string>
 #include <unordered_map>
 
 
 using namespace std;
 //template<class Problem, class Solution>
+
 
 
 class CacheManager {
