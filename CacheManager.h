@@ -22,7 +22,7 @@ public:
 
     virtual string extractSolution(string problem) = 0;
 
-    virtual void saveSolution(string problem, string solution) = 0;
+    virtual void saveSolutionToMap(string problem, string solution) = 0;
 
     virtual void saveToFile(unordered_map<string, string> solutions) =0;
 

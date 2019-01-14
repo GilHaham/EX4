@@ -5,24 +5,14 @@
 #ifndef EX4_SEARCHABLE_H
 #define EX4_SEARCHABLE_H
 
-//#include "State.h"
-//#include <set>
-
-//template <class T>
-//class Searchable {
-//public:
-//    virtual State<T> getInitialState()=0;
-//    virtual State<T> getGoalState()=0;
-//    virtual std::vector<State<T>> getAllPossibleStates(State<T> state)=0;
-//    virtual bool isGoal(State<T>)=0;
-//
-//};
-
 #include "string"
 #include "State.h"
 #include <vector>
 
 using namespace std;
+
+
+
 
 template <class T>
 class Searchable {
@@ -48,9 +38,9 @@ public:
 
     virtual double getTotalcost() = 0;
 
-    virtual vector<State<T>*> getAllPossibleStates(State<T>* s)=0;
+    virtual vector<State<T>*> getPossibleStates(State<T> *s)=0;
 
-    virtual void setTotalCost(double number) = 0;
+    virtual void setTotalCost(double num) = 0;
 
 };
 

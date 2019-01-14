@@ -60,7 +60,7 @@ public:
             }
             open.pop();
             if (!n->Equals(searchable->getGoalState())) {
-                vector<State<T> *> neighbors = searchable->getAllPossibleStates(n);
+                vector<State<T> *> neighbors = searchable->getPossibleStates(n);
                 for (State<T> *neighbor : neighbors) {
                     if (!isSolExist(open, neighbor) && !InClosed(neighbor, closed)) {
                         neighbor->setCameFrom(n);

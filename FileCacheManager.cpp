@@ -6,34 +6,31 @@
 
 // find if their is a solution in the map.
 //template<class string, class Solution>
-bool FileCacheManager::isExist(string problem) {
+bool FileCacheManager::isExist(string problem) { /////////////
     return this->solutionsMap.count(problem) > 0;
 
 }
 
-bool FileCacheManager::isSolutionExist(string problem) { //////////
+bool FileCacheManager::isSolutionExist(string problem) {
     int a = 5; // debuging variable need to erase.
-    return this->solutionsMap.count(problem) > 0;
+    return this->solutionsMap.end() != this->solutionsMap.find(problem);
 }
 
-string FileCacheManager::extractSolution(string problem) { ///////////////
-    return this->solutionsMap.at(problem);
+string FileCacheManager::extractSolution(string problem) {
+    return this->solutionsMap.find(problem)->second;
 }
 
-// extract the solution.
-//template<class Problem, class Solution>
+
 string FileCacheManager::popSolution(string problem) {
     return this->solutionsMap.at(problem);
 }
 
-// insert the key(problem) and the value(solution)
-//template<class Problem, class Solution>
-void FileCacheManager::saveSolution(string problem, string solution) {
+
+void FileCacheManager::saveSolutionToMap(string problem, string solution) {
     solutionsMap.insert(make_pair(problem, solution));
 }
 
-//
-//template<class Problem, class Solution>
+// using the DataBAse class with  fileToVector function.
 void FileCacheManager::loadFileToMap() {
     ifstream solutionsFile;
     string line;
@@ -41,7 +38,9 @@ void FileCacheManager::loadFileToMap() {
     solutionsFile.open("Solutions.txt");
     if (solutionsFile.is_open()) {
         while (getline(solutionsFile, line)) {
+            // get the problem and the solution.
             parsingVector = DataBase::fileToVector(line, '$');
+            // insert problem and solution into map.
             solutionsMap.insert(make_pair(parsingVector.at(0), parsingVector.at(1)));
         }
         solutionsFile.close();

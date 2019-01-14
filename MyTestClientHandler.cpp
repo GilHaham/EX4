@@ -92,7 +92,7 @@
 //                send(newsockfd, charKochavitName, h.size(), 0);
 //            } else {
 //                string h = solver->solve(str);
-//                cm->saveSolution(h, str);
+//                cm->saveSolutionToMap(h, str);
 //                h = h + "\n";
 //                const char *charKochavitName = h.c_str(); // convert the string to char *
 //                send(newsockfd, charKochavitName, h.size(), 0);
