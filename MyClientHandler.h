@@ -11,7 +11,7 @@
 #include "Point.h"
 #include "ClientHandler.h"
 
-class MyClientHandler : ClientHandler {
+class MyClientHandler : public ClientHandler {
 public:
     MyClientHandler(CacheManager *cacheManager, Solver<Searchable<Point>*, string> *solver);
 
