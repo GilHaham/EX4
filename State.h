@@ -11,6 +11,7 @@
 #include <list>
 #include <map>
 #include <vector>
+#include "Point.h"
 
 //TODO- initialize cameFrom
 
@@ -23,6 +24,28 @@ private:
     State<T>* cameFrom; //aba
 
 public:
+
+    bool operator == (const State<T>* &b) const{
+        return this->cost == b->cost;
+    }
+    bool operator == (const State<Point>* &b){
+        return this->cost == b->cost;
+    }
+
+
+    bool operator < (const State<T>* &b) const{
+        return this->cost < b->cost;
+    }
+    bool operator >(const State<T>* &b) const{
+        return this->cost > b->cost;
+    }
+
+
+    bool operator()(const State<T>* left , const State<T>* right){
+        return left->getCost() >right->getCost();
+    }
+
+
     State(T state1){
       this->state = state1;
     }
@@ -54,6 +77,10 @@ public:
     void setCost(double cost) {
         State::cost = cost;
     }
+
+
+
+
 
 
 };
