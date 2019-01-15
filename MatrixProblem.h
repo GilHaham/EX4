@@ -2,12 +2,32 @@
 // Created by meir on 07/01/19.
 //
 
+#ifndef MATRIX_PROBLEM_H
+#define MATRIX_PROBLEM_H
+
 #include "Searchable.h"
-#include "Point.h"
+#include <algorithm>
+#include "State.h"
 
-class MatrixProblem : public Searchable<class Point> {
+typedef pair<int, int> Point;
 
+Point add(Point p1, Point p2);
+
+double distance(Point p1, Point p2);
+
+
+class MatrixProblem : public Searchable<pair<int, int>> {
+    using Point = std::pair<int, int>;
+private:
+    vector<vector<double>> search;
+    Point initialPoint;
+    Point goalPoint;
+    State<Point> initialState;
 public:
+
+    double at(Point p) {
+        return search[p.first][p.second]; //return the Value at the i,j
+    }
     // inserting the matrix the vector of vector of states.
     /**
      *  the constructor.
@@ -16,83 +36,82 @@ public:
      * @param initialState point
      * @param goalState point
      */
-    MatrixProblem(vector<State<Point>*> search, State<Point>* initialState, State<Point>* goalState)
-    : Searchable(search, initialState,goalState){
+    MatrixProblem(const vector<vector<double>> &search, Point initialPoint, Point goalPoint)
+            : initialState(initialPoint, search[initialPoint.first][initialPoint.second]) {
+        this->goalPoint = goalPoint;
+        this->initialPoint = initialPoint;
+        this->search = search;
     }
 
 
-    double getTotalcost() override {
-        return this->totalCost;
+    Point getGoalNode() override {
+        return this->goalPoint;
     }
 
-    void setTotalCost(double num) override {
-        this->totalCost = num;
-    }
-
-    State<Point>* getGoalState(){
-        return this->goalState;
-    }
-
-    State<Point>* getInitialState() {
+    State<Point> getInitialState() override {
         return this->initialState;
     }
 
-    void setInitialState(State<Point>* point) {
-        this->initialState=point;
+    Point getInitialNode() override {
+        return initialPoint;
     }
 
     // getting all possible states.
-    vector<State<Point>*> getPossibleStates(State<Point> *state){
-        int matrixSize = this->searchable.size();
-        vector<State<Point>*> successors;
-        int row = state->getState().getRow();
-        int col = state->getState().getCol();
-        // checking if we are not in the last or first row and col.
-        for (int i = 0; i < matrixSize; i++) {
-            int k1 = this->searchable[i]->getState().getRow();
-            int k2 = this->searchable[i]->getState().getCol();
-            if (((k1 == (row - 1)) && (k2 == col)) || ((k1 == (row + 1)) && (k2 == col))
-            ||((k1 == row) && (k2 == (col - 1))) || ((k1 == row) && (k2 == (col + 1)))){
-                if (this->searchable[i]->getCost()!=(-1)){
-                    successors.push_back(this->searchable[i]);
-                }
+    vector<State<Point>> getPossibleStates(State<Point> state) override {
+        vector<State<Point>> output;
+        list<pair<int, int>> neighbors = {{0,  1},
+                                          {1,  0},
+                                          {-1, 0},
+                                          {0,  -1}};
+        for (const auto &offset : neighbors) {
+            Point possible_point = add(state.getNode(), offset);
+            if (isIndexInMatrixBounds(possible_point)) {
+                output.emplace_back(possible_point, at(possible_point) + state.getCost(), new State<Point>(state));
             }
         }
-        return successors;
+
+        return output;
+    }
+
+    bool isIndexInMatrixBounds(pair<int, int> point) const override {
+        unsigned long max_height = search.size();   //get the row's size.
+        unsigned long max_width = search[0].size(); //get the col's size.
+//        if(point.first<=max_height && point.second<= max_width)
+        return (point.first < max_height && point.second < max_width
+                && point.first >= 0 && point.second >= 0);
     }
 
     // getting the path solutions.
-    string getPathSolution(vector<State<Point>*> pathPoints){
+    string getPathSolution(vector<State<Point> *> pathPoints) {
         string thePath = "{";
-        State<Point>* state;
-        State<Point>* next;
-        for(int j=0; j<pathPoints.size()-1; j++) {
+        State<Point> *state;
+        State<Point> *next;
+        for (int j = 0; j < pathPoints.size() - 1; j++) {
             state = pathPoints[j];
-            next=pathPoints[j+1];
-            int rowNext=next->getState().getRow();
-            int colNext=next->getState().getCol();
-            int row = state->getState().getRow();
-            int col = state->getState().getCol();
+            next = pathPoints[j + 1];
+            int rowNext = next->getNode().first;
+            int colNext = next->getNode().second;
+            int row = state->getNode().first;
+            int col = state->getNode().second;
 
 
-            if ((colNext == col)&&(rowNext==row-1)){
-                thePath+="Up, ";
-            }
-            else if((colNext == col)&&(rowNext==row+1)){
-                thePath+="Down, ";
-            }
-            else if ((rowNext == row)&&(colNext==col+1)){
-                thePath+="Right, ";
-            }
-            else if ((rowNext == row)&&(colNext==col-1)){
-                thePath+="Left, ";
+            if ((colNext == col) && (rowNext == row - 1)) {
+                thePath += "Up, ";
+            } else if ((colNext == col) && (rowNext == row + 1)) {
+                thePath += "Down, ";
+            } else if ((rowNext == row) && (colNext == col + 1)) {
+                thePath += "Right, ";
+            } else if ((rowNext == row) && (colNext == col - 1)) {
+                thePath += "Left, ";
             }
         }
 
-        thePath.erase(thePath.size()-2);
+        thePath.erase(thePath.size() - 2);
         thePath += "}";
         return thePath;
     }
 
 
 };
+
+#endif /* MATRIX_PROBLEM_H */

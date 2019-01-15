@@ -3,8 +3,9 @@
 //
 
 #include <memory.h>
-#include <zconf.h>
+//#include <zconf.h>
 #include <iostream>
+#include <unistd.h>
 #include "MyClientHandler.h"
 #include "MatrixProblem.h"
 
@@ -49,5 +50,5 @@ void MyClientHandler::handleClient(int socket) {
 
 }
 
-MyClientHandler::MyClientHandler(CacheManager *cacheManager, Solver<Searchable<Point> *, string> *solver)
+MyClientHandler::MyClientHandler(CacheManager *cacheManager, Solver<Searchable<pair<int, int>> *, string> *solver)
         : cacheManager(cacheManager), solver(solver) {}

@@ -1,15 +1,18 @@
 #include "MyClientHandler.h"
-#include "Solver.h"
-#include "MatrixProblem.h"
-#include "State.h"
-#include "Point.h"
-#include <iostream>
-#include "MySerialServer.h"
-#include "FileCacheManager.h"
-#include "GetSol.h"
 #include "SearcherAlgo/BestFirstSearch.h"
+#include "MatrixProblem.h"
+#include "Searcher.h"
 
 int main() {
+
+    vector<vector<double>> vec = {{8,7,6,3},{10,7,5,3},{90,2,4,10},{90,2,3,90}};
+    Searchable<pair<int, int>>* searchable = new MatrixProblem(vec, make_pair(1, 0), make_pair(3,1));
+    Searcher<pair<int, int>>* searcher = new BestFirstSearch<pair<int, int>>();
+    auto x = searcher->search(searchable);
+    return 0;
+}
+
+
 
 //    State<Point> *initial = new State<Point>(Point(0, 0), 3);
 //    State<Point> *goal = new State<Point>(Point(2, 2), 6);
@@ -31,11 +34,9 @@ int main() {
 //    cout << x << endl;
 
 
-    MySerialServer* d = new MySerialServer();
-    Solver<Searchable<Point>*, string>* solver = new GetSol(new BestFirstSearch<Point>());
-    CacheManager* cacheManager = new FileCacheManager();
-    ClientHandler* cm = new MyClientHandler(cacheManager, solver);
-    d->openServer(5400,cm);
-    while (true) {}
-    return 0;
-}
+//    MySerialServer* d = new MySerialServer();
+//    Solver<Searchable<Point>*, string>* solver = new GetSol(new BestFirstSearch<Point>());
+//    CacheManager* cacheManager = new FileCacheManager();
+//    ClientHandler* cm = new MyClientHandler(cacheManager, solver);
+//    d->openServer(5400,cm);
+//    while (true) {}

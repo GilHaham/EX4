@@ -9,14 +9,14 @@
 #include "Solver.h"
 #include "Point.h"
 
-class GetSol : public Solver<Searchable<Point>*, string> {
-    Searcher<Point>* searcher;
+class GetSol : public Solver<Searchable<pair<int, int>>*, string> {
+    Searcher<pair<int, int>>* searcher;
 public:
-    GetSol(Searcher<Point>* searcher1) {
+    GetSol(Searcher<pair<int, int>>* searcher1) {
         this->searcher = searcher1;
     }
 
-    virtual string solve(Searchable<Point>* p) {
+    virtual string solve(Searchable<pair<int, int>>* p) {
         return this->searcher->search(p);
     }
 };

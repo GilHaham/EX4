@@ -12,35 +12,18 @@
 using namespace std;
 
 
-
-
-template <class T>
+template<class Node>
 class Searchable {
-protected:
-    vector<State<T>*> searchable;
-    State<T>* initialState;
-    State<T>* goalState;
-    double totalCost;
-
 public:
-    Searchable(vector<State<T>*> search, State<T>* initial, State<T>* goal){
-        this->searchable=search;
-        this->initialState=initial;
-        this->goalState=goal;
-    }
+    virtual State<Node> getInitialState() = 0;
 
+    virtual Node getInitialNode() = 0;
 
-    virtual State<T>* getInitialState() = 0;
+    virtual Node getGoalNode() = 0;
 
-    virtual State<T>* getGoalState()=0;
+    virtual vector<State<Node>> getPossibleStates(State<Node> s) = 0;
 
-    virtual string getPathSolution(vector<State<T>*> s)=0;
-
-    virtual double getTotalcost() = 0;
-
-    virtual vector<State<T>*> getPossibleStates(State<T> *s)=0;
-
-    virtual void setTotalCost(double num) = 0;
+    virtual bool isIndexInMatrixBounds(pair<int, int> point) const = 0;
 
 };
 

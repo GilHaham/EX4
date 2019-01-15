@@ -13,82 +13,42 @@
 #include <vector>
 #include "Point.h"
 
-//TODO- initialize cameFrom
 
-template <class T>
+template<class Node>
 class State {
-
 private:
-    T state;
-    double cost;  // total cost
-    State<T>* cameFrom; // father
+    Node node;
+    double cost{};          // total cost
+    State<Node> *cameFrom;  // father
 
 public:
 
-    bool operator == (const State<T>* &b) const{
-        return this->cost == b->cost;
-    }
-
-
-    bool operator < (const State<T>* &b) const{
-        return this->cost < b->cost;
-    }
-    bool operator >(const State<T>* &b) const{
-        return this->cost > b->cost;
-    }
-
-
-    bool operator()(const State<T>* left , const State<T>* right){
-        return left->getCost() >right->getCost();
-    }
-
-
-
-
-    State(T state1){
-      this->state = state1;
-    }
-
-
-    bool Equal(State<T> *other){
-        if(this->state == other->state) { ///////// cost == cost instead state == state
-            return true;
+    bool operator<(const State<Node>& other) const      {
+        if (node.first == other.node.first)  {
+            return node.second < other.node.second;
         }
-        else {
-            return false;
-        }
+        return node.first < other.node.first;
+    }
+    State(Node state, double cost, State<Node> *cameFrom = nullptr) {
+        this->cost = cost;
+        this->node = state;
+        this->cameFrom = cameFrom;
     }
 
-    T &getState(){
-        return this->state;
+    Node getNode() const {
+        return this->node;
     }
 
-    State *getCameFrom() {
+    State *getCameFrom() const {
         return this->cameFrom;
     }
 
-    double getCost(){
+    double getCost() const {
         return this->cost;
     }
 
-    void setCameFrom(State<T> *cameFrom) {
-        State::cameFrom = cameFrom;
-    }
-
-    void setState(T state) {
-        State::state = state;
-    }
-
-    void setCost(double cost) {
-        State::cost = cost;
-    }
-
-
-
-
-
-
 };
+
 #endif //EX4_STATE_H
 
 

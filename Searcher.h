@@ -7,11 +7,12 @@
 
 
 #include "Searchable.h"
+#include "State.h"
+
 template <class T>
 class Searcher {
-
 public:
-    virtual std::string search(Searchable<T>* searchable)=0;
+    virtual State<T> search(Searchable<T>* searchable)=0;
     virtual int getNumberOfNodesEvaluated()=0;
 
 

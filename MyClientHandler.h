@@ -13,11 +13,11 @@
 
 class MyClientHandler : public ClientHandler {
 public:
-    MyClientHandler(CacheManager *cacheManager, Solver<Searchable<Point>*, string> *solver);
+    MyClientHandler(CacheManager *cacheManager, Solver<Searchable<pair<int, int>>*, string> *solver);
 
 private:
     CacheManager* cacheManager;
-    Solver<Searchable<Point>*, string>* solver;
+    Solver<Searchable<pair<int, int>>*, string>* solver;
 
 
 
