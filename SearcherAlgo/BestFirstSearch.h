@@ -22,18 +22,10 @@ class BestFirstSearch : public Searcher<T> {
         }
 
     };
-
+private:
+    int numberOfNodesEvaluated = 0;
+    double totalCost = 0;
 public:
-//    bool isSolExist(priority_queue<State<T>, vector<State<T>>, Comp> open, State<T> state) {
-//        while (!open.empty()) {
-//            if (state->Equal(open.top())) {
-//                return true;
-//            }
-//            open.pop();
-//        }
-//        return false;
-//    }
-
     priority_queue<State<T> *, vector<State<T> *>, Comp> updateQueueOpen(priority_queue<State<T> *, vector<State<T> *>,
             Comp> open) {
         priority_queue<State<T> *, vector<State<T> *>, Comp> temp;
@@ -55,15 +47,28 @@ public:
         open.push(searchable->getInitialState());
 
         while (!open.empty()) {
+            /*extract node from open list -> NodesEvaluated++ */
             State<T> n = open.top();
             open.pop();
+            numberOfNodesEvaluated++;
+
             if (closed.count(n) != 0) {
                 continue;
             }
+
             closed.insert(n);
 
             if (n.getNode() == searchable->getGoalNode()) {
-                return n;
+                vector<State<T>> pathSolution;
+                pathSolution.emplace_back(n.getNode());
+                this->totalCost+= n.getCost();
+                while (n.getNode() != searchable->getInitialNode()){
+                    pathSolution.push_back(n.getCameFrom()->getNode());
+
+                }
+
+
+                return n; //TODO - need to check if its not block from getting ahead all the possible states.
             }
 
             vector<State<T>> neighbors = searchable->getPossibleStates(n);
@@ -76,7 +81,7 @@ public:
             }
     }
 
-    return searchable->getInitialState();
+    return searchable->getInitialState(); //TODO - why this is what we bring back?
 }
 
 bool InClosed(State<T> *state, vector<State<T> *> statesClosed) {
@@ -88,52 +93,12 @@ bool InClosed(State<T> *state, vector<State<T> *> statesClosed) {
     return false;
 }
 
+    //TODO
 int getNumberOfNodesEvaluated() {
-    return 5;
+    return this->numberOfNodesEvaluated;
 }
 
 };
 
 
 #endif //EX4_BESTFIRSTSEARCH_H
-
-
-//                    if (!isSolExist(open, neighbor) && !InClosed(neighbor, closed)) {
-//                        neighbor->setCameFrom(n);
-//                        tempCost=neighbor->getCost();
-//                        neighbor->setCost(neighbor->getCost()+neighbor->getCameFrom()->getCost());
-//                        open.insert(neighbor);
-//                    }
-//                    else if (neighbor->getCameFrom()==NULL) {
-//                    }
-//                    else if (neighbor->getCost() > tempCost + neighbor->getCameFrom()->getCost() ) {
-//                        if (!isSolExist(open, neighbor)) {
-//                            open.push(neighbor);
-//                            closed.erase(std::remove(closed.begin(), closed.end(), neighbor), closed.end());
-//                        }
-//                        else {
-//                            neighbor->setCameFrom(n);
-//                            neighbor->setCost(neighbor->getCost() - neighbor->getCameFrom()->getCost() + n->getCost());
-//                            open = updateQueueOpen(open);
-//                        }
-//                    }
-//n is the goal node
-//            else {
-//                int counter = 0;
-//                bool first = true;
-//                while (n != NULL) {
-//                    if (first) {
-//                        searchable->setTotalCost(n->getCost());
-//                        cout << searchable->getTotalcost() << endl;
-//                        first = false;
-//                    }
-//                    counter++;
-//                    path += to_string((int) n->getCost()) + " ";
-//                    totalPoints.push_back(n);
-//                    n = n->getCameFrom();
-//                }
-//                cout << counter << endl;
-//                reverse(totalPoints.begin(), totalPoints.end());
-//                finalPath = searchable->getPathSolution(totalPoints);
-//                return finalPath;
-//            }
