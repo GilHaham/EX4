@@ -14,8 +14,6 @@
 
 class MyClientHandler: public ClientHandler {
 
-
-
 public:
 
     using Point = std::pair<int, int>;

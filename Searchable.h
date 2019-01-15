@@ -13,6 +13,7 @@ using namespace std;
 
 
 template<class Node>
+
 class Searchable {
 public:
     virtual State<Node> getInitialState() = 0;

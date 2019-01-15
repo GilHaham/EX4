@@ -9,10 +9,10 @@
 #include "Searchable.h"
 #include "State.h"
 
-template <class T, class Solution>
+template <class Node>
 class Searcher {
 public:
-    virtual Solution search(Searchable<T>* searchable)=0;
+    virtual string search(Searchable<Node>* searchable)=0;
     virtual int getNumberOfNodesEvaluated()=0;
 
 

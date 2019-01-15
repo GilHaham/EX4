@@ -1,26 +1,47 @@
-#include "MyClientHandler.h"
-#include "SearcherAlgo/BestFirstSearch.h"
 #include "MatrixProblem.h"
 #include "Searcher.h"
 #include "FileCacheManager.h"
 #include "SearcherSolver.h"
 #include "MyParallelServer.h"
+#include "MyClientHandler.h"
+#include "SearcherAlgo/BestFirstSearch.h"
 
-int main() {
+//int main() {
 
-    CacheManager *cacheManager = new FileCacheManager();
-    auto solver = new SearcherSolver<pair<int, int>, string>(new BestFirstSearch<pair<int, int>, string>);
-    ClientHandler *handler = new MyClientHandler(cacheManager, solver);
+//    CacheManager *cacheManager = new FileCacheManager();
+//    auto solver = new SearcherSolver<pair<int, int>, string>(new BestFirstSearch<pair<int, int>, string>);
+//    auto solver = new SearcherSolver()
+//    ClientHandler *handler = new MyClientHandler(cacheManager, solver);
+//
+//
+//    MyParallelServer server;
+//    try {
+//        server.openServer(5402, handler);
+//    } catch (std::exception &e) {
+//        cout << e.what() << endl;
+//    }
+//    return 0;
+//}
+
+int main(int argc ,char* argv[]) {
+
+    CacheManager *cacheManager;
 
 
-    MyParallelServer server;
-    try {
-        server.openServer(5402, handler);
-    } catch (std::exception &e) {
-        cout << e.what() << endl;
-    }
+    int port = stoi(argv[1]);
+    Server* par=new MyParallelServer();
+    cacheManager=new FileCacheManager();
+    Searcher<pair<int,int>>* searcher = new BestFirstSearch<pair<int,int>>();
+    Solver<Searchable<pair<int,int>>*,string>* solver = new SearcherSolver(searcher);
+    ClientHandler *clientHandler =new MyClientHandler(cacheManager,solver);
+    par->openServer(port,clientHandler);
+
     return 0;
 }
+
+
+
+
 
 
 

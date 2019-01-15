@@ -13,6 +13,8 @@
 #include <vector>
 #include "Point.h"
 
+using namespace std;
+
 
 template<class Node>
 class State {
@@ -23,7 +25,7 @@ private:
 
 public:
 
-    bool operator<(const State<Node>& other) const      {
+    bool operator<(const State<Node> other) const  {
         if (node.first == other.node.first)  {
             return node.second < other.node.second;
         }
