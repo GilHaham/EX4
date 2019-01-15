@@ -35,6 +35,8 @@ public:
         this->cameFrom = cameFrom;
     }
 
+    State() {}
+
     Node getNode() const {
         return this->node;
     }
@@ -45,6 +47,10 @@ public:
 
     double getCost() const {
         return this->cost;
+    }
+
+    void setNode(Node node) {
+        State::node = node;
     }
 
 };

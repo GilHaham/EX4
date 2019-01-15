@@ -10,17 +10,19 @@
 #include "Searchable.h"
 
 
-template<class Node>
-class SearcherSolver : public Solver<Searchable<Node>*, State<Node>>
+template<class Node, class Solution>
+// we have here object adapter.
+class SearcherSolver : public Solver<Searchable<Node>*, Solution>
 {
-    Searcher<Node>* searcher;
+    Searcher<Node, Solution>* searcher;
+
 public:
-    explicit SearcherSolver(Searcher<Node>* searcher)    {
+    explicit SearcherSolver(Searcher<Node, Solution>* searcher)    {
         this->searcher = searcher;
     }
 
 
-    State<Node> solve(Searchable<Node>* p)   {
+    Solution solve(Searchable<Node>* p)   {
         return searcher->search(p);
     }
 };

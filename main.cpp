@@ -8,9 +8,9 @@
 
 int main() {
 
-    CacheManager *manager = new FileCacheManager();
-    auto solver = new SearcherSolver<pair<int, int>>(new BestFirstSearch<pair<int, int>>);
-    ClientHandler *handler = new MyClientHandler<pair<int, int>>(manager, solver);
+    CacheManager *cacheManager = new FileCacheManager();
+    auto solver = new SearcherSolver<pair<int, int>, string>(new BestFirstSearch<pair<int, int>, string>);
+    ClientHandler *handler = new MyClientHandler(cacheManager, solver);
 
 
     MyParallelServer server;
@@ -40,13 +40,13 @@ int main() {
 //
 //    Searchable<Point> *m = new Matrix(searchable, initial, goal);
 //    DFS<Point> *b = new DFS<Point>;
-//    string x = b->search(m);
+//    string x = b->matrix(m);
 //    cout << x << endl;
 
 
 //    MySerialServer* d = new MySerialServer();
 //    Solver<Searchable<Point>*, string>* solver = new GetSol(new BestFirstSearch<Point>());
 //    CacheManager* cacheManager = new FileCacheManager();
-//    ClientHandler* cm = new MyClientHandler(cacheManager, solver);
-//    d->openServer(5400,cm);
+//    ClientHandler* cacheManager = new MyClientHandler(cacheManager, solver);
+//    d->openServer(5400,cacheManager);
 //    while (true) {}

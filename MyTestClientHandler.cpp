@@ -3,51 +3,52 @@
 ////
 //
 //
-////#include <unistd.h>
-////#include <strings.h>
-////#include <cstring>
-////#include "MyTestClientHandler.h"
+//#include <unistd.h>
+//#include <strings.h>
+//#include <cstring>
+//#include "MyTestClientHandler.h"
 //
-////string MyTestClientHandler::handleClient(int clientId) {
-////    ssize_t n;
-////    bool keepReading = true;
+//void MyTestClientHandler::handleClient(int clientId) {
+//    ssize_t n;
+//    bool keepReading = true;
+//
+//
+//    while(keepReading) {
+//        char buffer[1000];
+//        // If connection is established then start communicating
+//        bzero(buffer, 1000);
+//        n = read(clientId, buffer, 1000);
+//
+//        //finish the conversetion.
+//        if(strcmp(buffer,"end") == 0){
+////            return nu;
+//        }
+//        if (n < 0) {
+//            perror("ERROR reading from socket");
+//            exit(1);
+//        }
+//
+//        if(!this->cacheManager->isSolutionExist(buffer)){
+//            string solution = this->solver->solve(buffer);
+//            this->cacheManager->saveSolution(solution, buffer);
+//            this->cacheManager->saveSolutionToMap()
+//        }
+//
+//        this->writeSolution(clientId,buffer);
+//    }
+//
+//
+//}
+//
+//void MyTestClientHandler::writeSolution(int id, char *buffer) {
+////    string solution = this->cacheManager->getSolution(buffer);
+////    ssize_t n = write(id, solution.c_str(), 1000);
 ////
-////
-////    while(keepReading) {
-////        char buffer[1000];
-////        // If connection is established then start communicating
-////        bzero(buffer, 1000);
-////        n = read(clientId, buffer, 1000);
-////
-////        //finish the conversetion.
-////        if(strcmp(buffer,"end") == 0){
-//////            return nu;
-////        }
-////        if (n < 0) {
-////            perror("ERROR reading from socket");
-////            exit(1);
-////        }
-////
-////        if(!this->cacheManager->isSolutionExist(buffer)){
-////            string solution = this->solver->solve(buffer);
-////            this->cacheManager->saveSolution(solution, buffer);
-////        }
-////
-////        this->writeSolution(clientId,buffer);
+////    if (n < 0) {
+////        perror("ERROR writing to socket");
+////        exit(1);
 ////    }
-////
-////
-////}
-////
-////void MyTestClientHandler::writeSolution(int id, char *buffer) {
-//////    string solution = this->cacheManager->getSolution(buffer);
-//////    ssize_t n = write(id, solution.c_str(), 1000);
-//////
-//////    if (n < 0) {
-//////        perror("ERROR writing to socket");
-//////        exit(1);
-//////    }
-////}
+//}
 //#include <unistd.h>
 //#include <cstring>
 //#include <iostream>
@@ -79,20 +80,20 @@
 //
 //
 //        if (str == "end") {
-////            FileCacheManager* fileCacheManager = dynamic_cast<FileCacheManager*>(this->cm);
+////            FileCacheManager* fileCacheManager = dynamic_cast<FileCacheManager*>(this->cacheManager);
 ////            fileCacheManager->exit();
 //            close(newsockfd);
 //            end = true;
 //        } else {
-//            if (cm->isSolutionExist(str)) {
+//            if (cacheManager->isSolutionExist(str)) {
 //                //write on socket
-//                string h = cm->extractSolution(str);
+//                string h = cacheManager->extractSolution(str);
 //                h = h + "\n";
 //                const char *charKochavitName = h.c_str(); // convert the string to char *
 //                send(newsockfd, charKochavitName, h.size(), 0);
 //            } else {
 //                string h = solver->solve(str);
-//                cm->saveSolutionToMap(h, str);
+//                cacheManager->saveSolutionToMap(h, str);
 //                h = h + "\n";
 //                const char *charKochavitName = h.c_str(); // convert the string to char *
 //                send(newsockfd, charKochavitName, h.size(), 0);

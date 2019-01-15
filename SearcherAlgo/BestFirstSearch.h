@@ -13,8 +13,8 @@
 
 using namespace std;
 
-template<class T>
-class BestFirstSearch : public Searcher<T> {
+template<class T, class Solution>
+class BestFirstSearch : public Searcher<T, Solution> {
     class Comp { //for priorityQueue
     public:
         bool operator()(State<T> left, State<T> right) {
@@ -37,7 +37,7 @@ public:
         return temp;
     }
 
-    State<T> search(Searchable<T> *searchable) {
+    Solution search(Searchable<T> *searchable) {
         priority_queue<State<T>, vector<State<T>>, Comp> open;
 
         set<State<T>> closed;

@@ -19,16 +19,18 @@ double distance(Point p1, Point p2);
 class MatrixProblem : public Searchable<pair<int, int>> {
     using Point = std::pair<int, int>;
 private:
-    vector<vector<double>> search;
+    vector<vector<double>> matrix;
     Point initialPoint;
     Point goalPoint;
     State<Point> initialState;
 public:
 
     double at(Point p) {
-        return search[p.first][p.second]; //return the Value at the i,j
+        return matrix[p.first][p.second]; //return the Value at the i,j
     }
     // inserting the matrix the vector of vector of states.
+
+
     /**
      *  the constructor.
      *
@@ -36,12 +38,15 @@ public:
      * @param initialState point
      * @param goalState point
      */
-    MatrixProblem(const vector<vector<double>> &search, Point initialPoint, Point goalPoint)
+    MatrixProblem( vector<vector<double>> &search, Point initialPoint, Point goalPoint)
             : initialState(initialPoint, search[initialPoint.first][initialPoint.second]) {
         this->goalPoint = goalPoint;
         this->initialPoint = initialPoint;
-        this->search = search;
+        this->matrix = search;
     }
+
+
+
 
 
     Point getGoalNode() override {
@@ -74,8 +79,8 @@ public:
     }
 
     bool isIndexInMatrixBounds(pair<int, int> point) const override {
-        unsigned long max_height = search.size();   //get the row's size.
-        unsigned long max_width = search[0].size(); //get the col's size.
+        unsigned long max_height = matrix.size();   //get the row's size.
+        unsigned long max_width = matrix[0].size(); //get the col's size.
 //        if(point.first<=max_height && point.second<= max_width)
         return (point.first < max_height && point.second < max_width
                 && point.first >= 0 && point.second >= 0);
