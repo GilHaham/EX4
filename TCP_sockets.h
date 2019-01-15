@@ -156,7 +156,7 @@ namespace posix_sockets {
         TCP_client accept() {
             sockaddr_in addr;
             socklen_t len = sizeof(addr);
-            int client_sock_fd = ::accept(sock.sock_fd, (sockaddr*) &addr, &len)
+            int client_sock_fd = ::accept(sock.sock_fd, (sockaddr*) &addr, &len);
             cout << "TCP CLIENT ACCEPT?" << endl;
             if (client_sock_fd < 0) {
                 // eagain and ewouldblock are errors normally hapenning on timeouts
@@ -173,6 +173,7 @@ namespace posix_sockets {
             // so we set the timeout to 0 (effectively - infinity)
             // for newly created sockets
             client_sock.settimeout(0);
+            cout << "end of client" << endl;
             return TCP_client(client_sock);
         }
 
