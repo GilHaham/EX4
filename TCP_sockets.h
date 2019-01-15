@@ -29,7 +29,9 @@
 #include <string>
 #include <system_error>
 #include <stdexcept>
+#include <iostream>
 
+using namespace std;
 
 namespace posix_sockets {
     class timeout_exception : public std::runtime_error {
@@ -133,25 +135,29 @@ namespace posix_sockets {
             addr_in.sin_port = htons(port);
             addr_in.sin_addr.s_addr = INADDR_ANY;
 
+            cout << "try to bind" << endl;
             if (bind(sock.sock_fd, (sockaddr *) &addr_in, sizeof(addr_in)) == -1) {
                 throw std::system_error(std::error_code(errno, std::generic_category()), "failure on bind");
             }
         }
 
         void listen(int max_lis) {
+            cout << "try to listen" << endl;
             if (::listen(sock.sock_fd, max_lis) == -1) {
                 throw std::system_error(std::error_code(errno, std::generic_category()), "error on listen");
             }
         }
 
         void settimeout(int sec, int usec = 0) {
+            cout << "set timeout" << endl;
             sock.settimeout(sec, usec);
         }
 
         TCP_client accept() {
             sockaddr_in addr;
             socklen_t len = sizeof(addr);
-            int client_sock_fd = ::accept(sock.sock_fd, (sockaddr*) &addr, &len);
+            int client_sock_fd = ::accept(sock.sock_fd, (sockaddr*) &addr, &len)
+            cout << "TCP CLIENT ACCEPT?" << endl;
             if (client_sock_fd < 0) {
                 // eagain and ewouldblock are errors normally hapenning on timeouts
                 if (errno == EAGAIN || errno == EWOULDBLOCK) {
