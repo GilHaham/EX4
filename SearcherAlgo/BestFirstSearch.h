@@ -82,6 +82,7 @@ public:
                 return finalPath;
 }
              * */
+            //swd
             if (n.getNode() == searchable->getGoalNode()) { // if this is the goal node.
 
                 vector<Node> path;
