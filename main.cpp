@@ -5,6 +5,7 @@
 #include "MyParallelServer.h"
 #include "MyClientHandler.h"
 #include "SearcherAlgo/BestFirstSearch.h"
+#include "AStar.h"
 
 //int main() {
 
@@ -35,7 +36,7 @@ int main(int argc ,char* argv[]) {
     int port = stoi(argv[1]);
     Server* par=new MyParallelServer();
     cacheManager=new FileCacheManager();
-    Searcher<pair<int,int>>* searcher = new BestFirstSearch<pair<int,int>>();
+    Searcher<pair<int,int>>* searcher = new AStar<pair<int,int>>();
     Solver<Searchable<pair<int,int>>*,string>* solver = new SearcherSolver(searcher);
     ClientHandler *clientHandler =new MyClientHandler(cacheManager,solver);
     par->openServer(port,clientHandler);

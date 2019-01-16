@@ -10,5 +10,5 @@ set(SOURCE_FILES main.cpp Server.h MySerialServer.h ClientHandler.h
         MatrixProblem.h Point.h StringReverser.cpp StringReverser.h Solver.h FileCacheManager.cpp FileCacheManager.h
         MyTestClientHandler.cpp MyTestClientHandler.h DataBase.cpp DataBase.h Main.cpp Main.h
         MyClientHandler.cpp MyClientHandler.h GetSol.h MatrixProblem.cpp
-        MyParallelServer.h TCP_sockets.cpp TCP_sockets.h SearcherSolver.h BFS.h)
+        MyParallelServer.h TCP_sockets.cpp TCP_sockets.h SearcherSolver.h BFS.h DFS.h AStar.h)
 add_executable(EX4 ${SOURCE_FILES})

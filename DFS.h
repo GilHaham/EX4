@@ -1,63 +1,67 @@
 //
-// Created by gil on 15/01/19.
+// Created by meir on 16/01/19.
 //
 
-#ifndef EX4_BFS_H
-#define EX4_BFS_H
+#ifndef EX4_DFS_H
+#define EX4_DFS_H
 
-#include <iostream>
-#include <algorithm>
+
 #include "Searcher.h"
-#include <list>
-#include <queue>
 #define NO_PATH "-1";
+#include <stack>
+#include "string"
+
 
 using namespace std;
 
 
 template<class Node>
-class BFS : public Searcher<Node> {
+class DFS : public Searcher<Node> {
 
+
+
+    int cost = 0;
     int counter=0;
-    int cost=0;
-
 public:
     string search(Searchable<Node> *searchable) {
-        vector<State<Node> *> visit;
-        string thePath;
-        queue<State<Node>*> qu;
+        stack<State<Node> *> qu;
         vector<State<Node> *> neighbors;
-        State<Node> *current;
         vector<State<Node>*> totalPoints;
+        vector<State<Node> *> visited;
+        State<Node> *current;
+        string finalPath="";
         qu.push(searchable->getInitialState());
-        visit.push_back(searchable->getInitialState());
         while (!qu.empty()) {
-            current = qu.front();
+            current = qu.top();
+            qu.pop();
             counter++;
+            if (!wasVisited(visited, current)) {
+                visited.push_back(current);
+            }
+
             if(current->Equal(searchable->getGoalState())){
+
                 while (current != NULL) {
                     cost+=current->getCost();
                     totalPoints.push_back(current);
                     current = current->getDad();
                 }
-                //return the path to the client
-                std::reverse(totalPoints.begin(),totalPoints.end());
-                thePath= searchable->getPathSolution(totalPoints);
-                return thePath;
+                reverse(totalPoints.begin(),totalPoints.end());
+                finalPath= searchable->getPathSolution(totalPoints);
+                return finalPath;
             }
             neighbors = searchable->getAllPossibleStates(current);
-            qu.pop();
             for (State<Node> *neighbor : neighbors) {
-                if (!wasVisited(visit,neighbor)) {
+                if (!wasVisited(visited,neighbor)) {
                     neighbor->setCameFrom(current);
-                    visit.push_back(neighbor);
                     qu.push(neighbor);
                 }
             }
         }
-        //dead end -  which means we run into "walls" so there is no path
         return NO_PATH;
     }
+
+
 
 
     bool wasVisited(vector<State<Node> *> visited,State<Node> *current ){
@@ -78,4 +82,5 @@ public:
     }
 };
 
-#endif //EX4_BFS_H
+
+#endif //EX4_DFS_H

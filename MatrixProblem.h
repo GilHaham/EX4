@@ -13,7 +13,7 @@ typedef pair<int, int> Point;
 
 Point add(Point p1, Point p2);
 
-double distance(Point p1, Point p2);
+//double distance(Point currentNode, Point nextNode);
 
 
 class MatrixProblem : public Searchable<pair<int, int>> {
