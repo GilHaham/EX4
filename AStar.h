@@ -73,6 +73,7 @@ public:
             closed.insert(*n);
 
             this->numberOfNodesEvaluated++;
+            cout << numberOfNodesEvaluated<< endl;
 
             if (n->getNode() == searchable->getGoalNode()) { // if this is the goal node.
 

@@ -64,6 +64,7 @@ public:
             closed.insert(*n);
 
             this->numberOfNodesEvaluated++;
+            cout << numberOfNodesEvaluated<<endl;
 
 
             /*

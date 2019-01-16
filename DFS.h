@@ -7,7 +7,7 @@
 
 
 #include "Searcher.h"
-#define NO_PATH "-1";
+#define CANT_GO_THROGHT "-1";
 #include <stack>
 #include "string"
 
@@ -29,7 +29,7 @@ public:
         vector<State<Node>*> totalPoints;
         vector<State<Node> *> visited;
         State<Node> *current;
-        string finalPath="";
+        string finalPath;
         qu.push(searchable->getInitialState());
         while (!qu.empty()) {
             current = qu.top();
@@ -58,7 +58,7 @@ public:
                 }
             }
         }
-        return NO_PATH;
+        return CANT_GO_THROGHT;
     }
 
 

@@ -10,7 +10,7 @@
 #include "Searcher.h"
 #include <list>
 #include <queue>
-#define NO_PATH "-1";
+#define CANT_GO_THROGHT "-1";
 
 using namespace std;
 
@@ -38,7 +38,7 @@ public:
                 while (current != NULL) {
                     cost+=current->getCost();
                     totalPoints.push_back(current);
-                    current = current->getDad();
+                    current = current->getCameFrom();
                 }
                 //return the path to the client
                 std::reverse(totalPoints.begin(),totalPoints.end());
@@ -56,7 +56,7 @@ public:
             }
         }
         //dead end -  which means we run into "walls" so there is no path
-        return NO_PATH;
+        return CANT_GO_THROGHT;
     }
 
 
