@@ -18,6 +18,7 @@ class BestFirstSearch : public Searcher<Node> {
 private:
     int numberOfNodesEvaluated;
     double totalCost;
+
     class Comp { //for priorityQueue
     public:
         bool operator()(State<Node> left, State<Node> right) {
@@ -27,8 +28,8 @@ private:
     };
 
 public:
-    BestFirstSearch(){
-        this->numberOfNodesEvaluated =0;
+    BestFirstSearch() {
+        this->numberOfNodesEvaluated = 0;
         this->totalCost = 0;
     }
 
@@ -63,8 +64,45 @@ public:
 
             this->numberOfNodesEvaluated++;
 
+
+            /*
+             *  if (n->Equal(searchable->getGoalState())) {
+                path.push_back(n);
+                while (!n->Equal(searchable->getInitialState())) {
+                    path.push_back(n->getDad());
+                    pathCost += n->getCost();
+                    n = n->getDad();
+                }
+                pathCost += n->getCost();
+                vector<State<T>*> back;
+                for (int i = path.size() - 1; i >= 0 ; i--) {
+                    back.push_back(path.at(i));
+                }
+                finalPath= searchable->getPathSolution(back);
+                return finalPath;
+}
+             * */
             if (n.getNode() == searchable->getGoalNode()) { // if this is the goal node.
-//                searchable->getPathSolution(closed);
+
+                vector<Node> path;
+                path.push_back(n);
+                while (n.getNode() != searchable->getInitialNode()) {
+                    path.push_back(n.getCameFrom());
+                    this->totalCost += n.getCost();
+                    n = n.getCameFrom();
+                }
+                //last iteration
+                this->totalCost += n.getCost();
+                vector<State<Node> *> back;
+                for (int i = path.size() - 1; i >= 0; i--) {
+                    back.push_back(path.at(i));
+                }
+                string finalPath = "";
+                finalPath = searchable->getPathSolution(back);
+                return finalPath;
+
+
+
 //            vector<State<T>*> path = this->ThePath(searchable->getGoalState());
 //                string solution = searchable->WhereToGo(path);
 //                return solution;

@@ -40,8 +40,8 @@ public:
      */
     MatrixProblem( vector<vector<double>> &search, Point initialPoint, Point goalPoint)
             : initialState(initialPoint, search[initialPoint.first][initialPoint.second]) {
-        this->goalPoint = goalPoint;
-        this->initialPoint = initialPoint;
+        this->goalPoint = goalPoint; //ignore warnings
+        this->initialPoint = initialPoint; //ignore warnings
         this->matrix = search;
     }
 
