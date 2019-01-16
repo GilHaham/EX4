@@ -55,12 +55,13 @@ public:
         open.push(searchable->getInitialState());
 
         while (!open.empty()) {
-            State<Node> n = open.top();
+            State<Node> nAmp = open.top();
+            State<Node>* n = &nAmp;
             open.pop();
-            if (closed.count(n) != 0) { // check that n is not in closed list.
+            if (closed.count(*n) != 0) { // check that n is not in closed list.
                 continue;
             }
-            closed.insert(n);
+            closed.insert(*n);
 
             this->numberOfNodesEvaluated++;
 
@@ -83,23 +84,24 @@ public:
 }
              * */
             //swd
-            if (n.getNode() == searchable->getGoalNode()) { // if this is the goal node.
+            if (n->getNode() == searchable->getGoalNode()) { // if this is the goal node.
 
                 vector<Node> path;
-                path.push_back(n);
-                while (n.getNode() != searchable->getInitialNode()) {
-                    path.push_back(n.getCameFrom());
-                    this->totalCost += n.getCost();
-                    n = n.getCameFrom();
+                path.push_back(n->getNode());
+                while (n->getNode() != searchable->getInitialNode()) {
+                    path.push_back(n->getCameFrom()->getNode());
+                    this->totalCost += n->getCost();
+                    n = n->getCameFrom();
                 }
                 //last iteration
-                this->totalCost += n.getCost();
-                vector<State<Node> *> back;
-                for (int i = path.size() - 1; i >= 0; i--) {
-                    back.push_back(path.at(i));
+                this->totalCost += n->getCost();
+                vector<Node> back;
+                for (long i = path.size() - 1; i >= 0; i--) {
+                    back.push_back(path[i]);
                 }
-                string finalPath = "";
-                finalPath = searchable->getPathSolution(back);
+
+                string finalPath;
+                finalPath += searchable->getPathSolution(back);
                 return finalPath;
 
 
@@ -110,7 +112,7 @@ public:
 //                return to_string(n.getCost());
             }
 
-            vector<State<Node>> neighbors = searchable->getPossibleStates(n);
+            vector<State<Node>> neighbors = searchable->getPossibleStates(*n);
             for (State<Node> neighbor : neighbors) {
                 if (closed.count(neighbor) > 0) {
                     continue;

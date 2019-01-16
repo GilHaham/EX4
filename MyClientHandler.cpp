@@ -40,22 +40,16 @@ vector<string> read_from_client(posix_sockets::TCP_client client) {
 
     string client_input;
 
-    while (client_input.find("end") == string::npos) {
+    while (client_input.find("end\n") == string::npos) {
         try {
             client_input += client.read(256);
         } catch(std::exception& e)  {
-            cout << e.what() << endl;
+            perror(e.what());
         }
     }
 
     client_input = client_input.substr(0, client_input.find("end"));
     return split(client_input, '\n');
-    while (!client_input.empty()) {
-        output.push_back(client_input.substr(0, client_input.find('\n')));
-        client_input = client_input.substr(client_input.find('\n') + 1);
-    }
-
-    return output;
 }
 void MyClientHandler::handleClient(int socketFd) {
     posix_sockets::TCP_socket sock(socketFd);
@@ -105,7 +99,6 @@ void MyClientHandler::handleClient(int socketFd) {
     }
     int i = 0;
 
-    // צריך ליצור סירצ'בל מהמטריצה
 
     pair<int , int> initial;
     pair<int , int> goal;
@@ -119,7 +112,10 @@ void MyClientHandler::handleClient(int socketFd) {
     if(!this->cacheManager->isSolutionExist(problemStr)) {
         MatrixProblem* matrixProblem =new MatrixProblem(matrix_double,initial,goal );
         solution = this->searcher->solve(matrixProblem);
-        matrixProblem->getInitialNode();
+        if (write(socketFd, solution.c_str(), solution.size()) < 0 )    {
+            perror("error on write");
+            exit(1);
+        }
     }
 
 

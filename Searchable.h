@@ -26,7 +26,7 @@ public:
 
     virtual bool isIndexInMatrixBounds(pair<int, int> point) const = 0;
 
-    virtual string getPathSolution(vector<State<Node> *> pathPoints)=0;
+    virtual string getPathSolution(vector<Node> pathPoints)=0;
 
 };
 

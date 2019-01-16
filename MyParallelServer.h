@@ -34,24 +34,28 @@ namespace server_side {
                 try {
 
                     TCP_client client = server.accept();
-                    std::thread t([](ClientHandler * handler, int sock){handler->handleClient(sock);}, clientHandler, client.get_socket());
-                    t.detach();
+                    threads.push(std::thread([](ClientHandler * handler, int sock){handler->handleClient(sock);}, clientHandler, client.get_socket()));
 //                    clientHandler->handleClient(client.get_socket());
                 }   catch(timeout_exception& e) {
-                    cout << e.what();
+                    cout << e.what() << endl;
                     server.close();
                     break;
                 }   catch (std::exception& e)   {
-                    cout << e.what();
-                    perror("error on accept");
+                    perror(e.what());
+                    exit(1);
                 }
 
                 if (first_run)  {
-                    server.settimeout(1000);
+                    server.settimeout(10);
                     first_run = false;
 
                 }
             }
+            while (!threads.empty())    {
+                threads.top().join();
+                threads.pop();
+            }
+
         }
 
 

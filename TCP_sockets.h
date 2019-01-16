@@ -157,7 +157,6 @@ namespace posix_sockets {
             sockaddr_in addr;
             socklen_t len = sizeof(addr);
             int client_sock_fd = ::accept(sock.sock_fd, (sockaddr*) &addr, &len);
-            cout << "TCP CLIENT ACCEPT?" << endl;
             if (client_sock_fd < 0) {
                 // eagain and ewouldblock are errors normally hapenning on timeouts
                 if (errno == EAGAIN || errno == EWOULDBLOCK) {
@@ -166,6 +165,8 @@ namespace posix_sockets {
                     throw std::system_error(std::error_code(errno, std::generic_category()), "error on accept");
                 }
             }
+
+            cout << "TCP CLIENT ACCEPT?" << endl;
 
             TCP_socket client_sock(client_sock_fd);
 

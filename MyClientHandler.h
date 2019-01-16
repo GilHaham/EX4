@@ -17,7 +17,6 @@ class MyClientHandler: public ClientHandler {
 public:
 
     using Point = std::pair<int, int>;
-    int t;
 
 
     Solver<Searchable<pair<int, int>>*, string>* searcher;

@@ -87,31 +87,32 @@ public:
     }
 
     // getting the path solutions.
-    string getPathSolution(vector<State<Point> *> pathPoints) {
+    string getPathSolution(vector<Point> pathPoints) override {
         string thePath = "{";
-        State<Point> *state;
-        State<Point> *next;
+        Point state;
+        Point next;
         for (int j = 0; j < pathPoints.size() - 1; j++) {
             state = pathPoints[j];
             next = pathPoints[j + 1];
-            int rowNext = next->getNode().first;
-            int colNext = next->getNode().second;
-            int row = state->getNode().first;
-            int col = state->getNode().second;
+            int rowNext = next.first;
+            int colNext = next.second;
+            int row = state.first;
+            int col = state.second;
+
 
 
             if ((colNext == col) && (rowNext == row - 1)) {
-                thePath += "Up, ";
+                thePath = "Down, " + thePath;
             } else if ((colNext == col) && (rowNext == row + 1)) {
-                thePath += "Down, ";
+                thePath = "Up, " + thePath;
             } else if ((rowNext == row) && (colNext == col + 1)) {
-                thePath += "Right, ";
+                thePath = "Left, " + thePath;
             } else if ((rowNext == row) && (colNext == col - 1)) {
-                thePath += "Left, ";
+                thePath = "Right, " + thePath;
             }
         }
 
-        thePath.erase(thePath.size() - 2);
+        thePath.erase(thePath.size() - 3);
         thePath += "}";
         return thePath;
     }
