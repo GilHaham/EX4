@@ -64,7 +64,7 @@ public:
             this->numberOfNodesEvaluated++;
 
             if (n.getNode() == searchable->getGoalNode()) { // if this is the goal node.
-//                searchable->getPathSolution(closed)
+//                searchable->getPathSolution(closed);
 //            vector<State<T>*> path = this->ThePath(searchable->getGoalState());
 //                string solution = searchable->WhereToGo(path);
 //                return solution;

@@ -32,16 +32,22 @@ namespace server_side {
             while (true) {
 
                 try {
+
                     TCP_client client = server.accept();
                     std::thread t([](ClientHandler * handler, int sock){handler->handleClient(sock);}, clientHandler, client.get_socket());
                     t.detach();
+//                    clientHandler->handleClient(client.get_socket());
                 }   catch(timeout_exception& e) {
+                    cout << e.what();
                     server.close();
                     break;
+                }   catch (std::exception& e)   {
+                    cout << e.what();
+                    perror("error on accept");
                 }
 
                 if (first_run)  {
-                    server.settimeout(10);
+                    server.settimeout(1000);
                     first_run = false;
 
                 }
