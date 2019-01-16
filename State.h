@@ -21,7 +21,7 @@ class State {
 private:
     Node node;
     double cost{};          // total cost
-    State<Node> cameFrom;  // father
+    State<Node> *cameFrom;  // father
 
 public:
 
@@ -31,7 +31,7 @@ public:
         }
         return node.first < other.node.first;
     }
-    State(Node state, double cost, State<Node> cameFrom = nullptr) {
+    State(Node state, double cost, State<Node> *cameFrom = nullptr) {
         this->cost = cost;
         this->node = state;
         this->cameFrom = cameFrom;
@@ -43,7 +43,7 @@ public:
         return this->node;
     }
 
-    State<Node> getCameFrom() const {
+    State *getCameFrom() const {
         return this->cameFrom;
     }
 
