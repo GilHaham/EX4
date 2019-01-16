@@ -115,7 +115,7 @@ void MyClientHandler::handleClient(int socketFd) {
     goal.first = initialAndGoal_vector[1][0];
     goal.second = initialAndGoal_vector[1][1];
 
-
+//Check
     if(!this->cacheManager->isSolutionExist(problemStr)) {
         MatrixProblem* matrixProblem =new MatrixProblem(matrix_double,initial,goal );
         solution = this->searcher->solve(matrixProblem);
