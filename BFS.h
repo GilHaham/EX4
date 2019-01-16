@@ -20,7 +20,7 @@ private:
 
 public:
 
-    State<Node> search(Searchable<Node> *searchable) override {
+    string search(Searchable<Node> *searchable) override {
 
         State<Node> currentState = searchable->getInitialNode();
         State<Node> goalState = searchable->getGoalNode();  //maybe dangerous ...
@@ -37,7 +37,7 @@ public:
             this->NumberOfNodesEvaluated++;
 
             if (currentState.getNode() == searchable->getGoalNode()) {
-                return currentState; //TODO - need to check if its not block from getting ahead all the possible states.
+                return searchable.; //TODO - need to check if its not block from getting ahead all the possible states.
             }
 
 

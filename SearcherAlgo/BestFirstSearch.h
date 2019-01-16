@@ -61,9 +61,14 @@ public:
             }
             closed.insert(n);
 
-            if (n.getNode() == searchable->getGoalNode()) { // if this is the goal node.
+            this->numberOfNodesEvaluated++;
 
-                return to_string(n.getCost());
+            if (n.getNode() == searchable->getGoalNode()) { // if this is the goal node.
+//                searchable->getPathSolution(closed)
+//            vector<State<T>*> path = this->ThePath(searchable->getGoalState());
+//                string solution = searchable->WhereToGo(path);
+//                return solution;
+//                return to_string(n.getCost());
             }
 
             vector<State<Node>> neighbors = searchable->getPossibleStates(n);
@@ -96,44 +101,3 @@ public:
 
 
 #endif //EX4_BESTFIRSTSEARCH_H
-
-
-//                    if (!isSolExist(open, neighbor) && !InClosed(neighbor, closed)) {
-//                        neighbor->setCameFrom(n);
-//                        tempCost=neighbor->getCost();
-//                        neighbor->setCost(neighbor->getCost()+neighbor->getCameFrom()->getCost());
-//                        open.insert(neighbor);
-//                    }
-//                    else if (neighbor->getCameFrom()==NULL) {
-//                    }
-//                    else if (neighbor->getCost() > tempCost + neighbor->getCameFrom()->getCost() ) {
-//                        if (!isSolExist(open, neighbor)) {
-//                            open.push(neighbor);
-//                            closed.erase(std::remove(closed.begin(), closed.end(), neighbor), closed.end());
-//                        }
-//                        else {
-//                            neighbor->setCameFrom(n);
-//                            neighbor->setCost(neighbor->getCost() - neighbor->getCameFrom()->getCost() + n->getCost());
-//                            open = updateQueueOpen(open);
-//                        }
-//                    }
-//n is the goal node
-//            else {
-//                int counter = 0;
-//                bool first = true;
-//                while (n != NULL) {
-//                    if (first) {
-//                        searchable->setTotalCost(n->getCost());
-//                        cout << searchable->getTotalcost() << endl;
-//                        first = false;
-//                    }
-//                    counter++;
-//                    path += to_string((int) n->getCost()) + " ";
-//                    totalPoints.push_back(n);
-//                    n = n->getCameFrom();
-//                }
-//                cout << counter << endl;
-//                reverse(totalPoints.begin(), totalPoints.end());
-//                finalPath = searchable->getPathSolution(totalPoints);
-//                return finalPath;
-//            }

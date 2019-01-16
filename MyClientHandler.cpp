@@ -4,20 +4,33 @@
 
 #include <string.h>
 #include <iostream>
-#include <mutex>
+#include "TCP_sockets.h"
 #include <unistd.h>
 #include "MyClientHandler.h"
 
 using namespace std;
 
 
-MyClientHandler::MyClientHandler(CacheManager *cacheManager, Solver<Searchable<pair<int,int>> *, string> *searcher)
+MyClientHandler::MyClientHandler(CacheManager *cacheManager, Solver<Searchable<pair<int, int>> *, string> *searcher)
         : searcher(searcher), cacheManager(cacheManager) {}
 
 MyClientHandler::MyClientHandler() {}
 
+vector<string> read_from_client(posix_sockets::TCP_client client)
+{
+    vector<string> output;
 
-
+    /*
+     * string temp
+     * while input.contain("end") == false:
+     *     temp += input.read(100)
+     *     if (output.contains("\n")
+     *         output.push_back(temp[:"\n"])
+     *
+     *
+     *
+     */
+}
 
 void MyClientHandler::handleClient(int socketFd) {
 
@@ -26,14 +39,14 @@ void MyClientHandler::handleClient(int socketFd) {
     ssize_t n;
     string matrixString;
     string tempStr;
-    vector <string> clearStrVector;
+    vector<string> clearStrVector;
     size_t strIndex = 0;
     int k = 0;
-    vector <vector<string>> tmpMatrix;
-    vector < vector < State < vector < int >> * >> matrix;
+    vector<vector<string>> tmpMatrix;
+    vector<vector<double >> matrix;
     vector<int> stateVector;
-    State <vector<int>> startState;
-    State <vector<int>> exitState;
+    State<vector<int>> startState;
+    State<vector<int>> exitState;
 
 
     while (isNotEnd) {
@@ -67,18 +80,13 @@ void MyClientHandler::handleClient(int socketFd) {
 
             int temp;
             vector<int> pos;
-            vector < State < vector < int >> * > vecLine;
+            vector<State<vector<int >> *> vecLine;
             for (int i = 0; i < tmpMatrix.size() - 2; i++) {
                 for (int j = 0; j < tmpMatrix[i].size(); j++) { // one line.
-                    if (strcmp(tmpMatrix[i][j].c_str(), "-1") == 0) {
-                        temp = -1;
-                    } else {
-                        int temp1 = stoi(tmpMatrix[i][j]);
-                        temp = temp1;
-                    }
+                    temp = stoi(tmpMatrix[i][j]);
                     pos.push_back(i);
                     pos.push_back(j);
-                    State <vector<int>> *myState = new State <vector<int>>(pos, temp, nullptr);
+                    State<vector<int>> *myState = new State<vector<int>>(pos, temp, nullptr);
                     vecLine.push_back(myState);
                     pos.clear();
                 }
@@ -103,37 +111,17 @@ void MyClientHandler::handleClient(int socketFd) {
                 }
             }
         }
-        mutex mutex1;
-        mutex1.lock();
         cout << "mutex exist" << endl;
 
-        pair<int, int>initialState;
-        pair<int, int>goalState;
+        pair<int, int> initialState;
+        pair<int, int> goalState;
         initialState.first = startState.getNode()[0];
         initialState.second = startState.getNode()[1];
         goalState.first = exitState.getNode()[0];
         goalState.second = exitState.getNode()[1];
 
         vector<vector<double >> newMatrix;
-
-
-
-//        vector < vector < State < vector < int >> * >> :: iterator outerIterator;
-//        vector<State<vector<int>>*> :: iterator innerIterator;
-//        for (outerIterator = matrix.begin(); outerIterator!= matrix.end(); outerIterator++){
-//            for (innerIterator=outerIterator->begin(); innerIterator!=outerIterator->end(); innerIterator++){
-//                newMatrix[outerIterator][innerIterator]
-//            }
-//        }
-
-
-//        if (!cacheManager->isSolutionExist(matrixString)) {
-//            string solution = searcher->solve(new MatrixProblem(newMatrix, initialState, goalState));
-//            cacheManager->saveSolutionToMap(matrixString, solution);
-//            cout << "my solution: " << solution << endl;
-        }
-//        writeTheSolution(clientId, matrixString.c_str());
-//        mutex1.unlock();
     }
+}
 
 //}

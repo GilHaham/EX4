@@ -173,7 +173,6 @@ namespace posix_sockets {
             // so we set the timeout to 0 (effectively - infinity)
             // for newly created sockets
             client_sock.settimeout(0);
-            cout << "end of client" << endl;
             return TCP_client(client_sock);
         }
 
