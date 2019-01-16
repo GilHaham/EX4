@@ -65,25 +65,67 @@ void MyClientHandler::handleClient(int socketFd) {
     vector<vector<string>> matrix;
 
     vector<vector<double>> matrix_double;
+    vector<vector<double>> initialAndGoal_vector;
     for (auto& inp : input) {
         matrix.push_back(split(inp, ','));
     }
 
-    matrix.pop_back();
-    matrix.pop_back();
 
-    for (int i = 0; i < matrix.size(); ++i) {
+    // the matrix converted to double into matrix_double.
+    for (int i = 0; i < matrix.size()-2; ++i) {
         matrix_double.push_back(vector<double>());
         for (auto& val : matrix[i]) {
             matrix_double[i].push_back(stod(val));
         }
     }
 
+    // the initial state and the goal state.
+    int j = 0;
+    for (int i = matrix.size()-1; i > matrix.size()-3; --i) {
+        initialAndGoal_vector.push_back(vector<double>());
+        for (auto& val : matrix[i]) {
+            initialAndGoal_vector[j].push_back(stod(val));
+        }
+        j++;
+    }
+
+
+
+
+    // convert the matrix to string.
+    string problemStr = " ";
+    string solution = " ";
+    vector<vector<double>>::iterator iter;
+    vector<double>::iterator iter2;
+    for (iter = matrix_double.begin(); iter != matrix_double.end();iter++ ) {
+        for (iter2 = (*iter).begin(); iter2 != (*iter).end(); iter2++ ) {
+            problemStr += to_string(*iter2);
+            problemStr += " ";
+        }
+    }
     int i = 0;
+
+    // צריך ליצור סירצ'בל מהמטריצה
+
+    pair<int , int> initial;
+    pair<int , int> goal;
+
+    initial.first = initialAndGoal_vector[0][0];
+    initial.second = initialAndGoal_vector[0][1];
+    goal.first = initialAndGoal_vector[1][0];
+    goal.second = initialAndGoal_vector[1][1];
+
+
+    if(!this->cacheManager->isSolutionExist(problemStr)) {
+        MatrixProblem* matrixProblem =new MatrixProblem(matrix_double,initial,goal );
+        solution = this->searcher->solve(matrixProblem);
+        matrixProblem->getInitialNode();
+    }
+
 
 }
 
-//}
+
 
 
 

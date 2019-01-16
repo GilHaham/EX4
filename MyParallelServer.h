@@ -11,7 +11,7 @@
 #include <thread>
 #include "Server.h"
 
-#define MAX_LISTEN 5
+#define MAX_LISTEN 1
 using namespace posix_sockets;
 
 
